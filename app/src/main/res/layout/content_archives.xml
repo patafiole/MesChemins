@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lit_dernier"
+        android:layout_marginTop="120dp"
+        android:layout_marginStart="36dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="105dp"
+        android:text="@string/lire_base"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/textView7"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/voici"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="36dp"
+        app:layout_constraintTop_toBottomOf="@id/textView7"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/dernier_trajet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:textSize="20sp"
+        android:text="@string/nom_trajet"
+        android:textStyle="bold"
+        android:background="@drawable/item_list_background"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView9" />
+
+    <ImageButton
+        android:id="@+id/ifi_button"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:src="@mipmap/iphi"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dernier_trajet"
+        android:contentDescription="@string/iphigenie" />
+
+    <ImageButton
+        android:id="@+id/mel_button"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:src="@drawable/mail_bleu"
+        android:layout_marginStart="25dp"
+        app:layout_constraintStart_toEndOf="@id/ifi_button"
+        app:layout_constraintTop_toTopOf="@id/ifi_button"
+        android:contentDescription="@string/email" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/liste"
+        android:layout_marginTop="140dp"
+        android:layout_marginStart="36dp"
+        app:layout_constraintTop_toBottomOf="@id/textView9"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <Button
+        android:id="@+id/button6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/par_date"
+        android:layout_marginTop="-40dp"
+        app:layout_constraintTop_toTopOf="@id/textView8"
+        app:layout_constraintStart_toEndOf="@id/textView8"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <Button
+        android:id="@+id/button7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/par_nom"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toTopOf="@id/textView8"
+        app:layout_constraintStart_toEndOf="@id/textView8"
+        app:layout_constraintEnd_toEndOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

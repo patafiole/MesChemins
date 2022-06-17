@@ -1,0 +1,55 @@
+<resources>
+    <string name="app_name">MesChemins</string>
+    <string name="action_settings">Préférences</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="title_activity_preferences">Préférences</string>
+    <string name="help">Aide</string>
+    <string name="real_time">heure</string>
+    <string name="alti">altitude</string>
+    <string name="loc">coordonnées</string>
+    <string name="accuracy">précision</string>
+    <string name="ta_position">Position GPS actuelle = </string>
+    <string name="lat_lon">%1$s °N"      "%2$s °E</string>
+    <string name="precision">Précision = %1$s m</string>
+    <string name="altitude">Altitude = %1$s m</string>
+    <string name="pas_precis">Pas de position précise</string>
+    <string name="trkpt">&lt;trkpt lat=\"%1s\" lon=\"%2s\"&gt;&lt;ele&gt;%3s&lt;/ele&gt;&lt;time&gt;%4s
+        &lt;/time&gt;&lt;/trkpt&gt;</string>
+    <string name="no_gps">Pas de GPS</string>
+    <string name="start">Debut</string>
+    <string name="pause">Pause</string>
+    <string name="resume">Reprise</string>
+    <string name="save">Sauvegarde</string>
+    <string name="cancel">Annuler</string>
+    <string name="actions">Sauvegarde/Partage</string>
+    <string name="saisie_nom">Saisissez un nom pour l\'itinéraire</string>
+    <string name="nom_itineraire">nom de l\'itinéraire</string>
+    <string name="OK">OK</string>
+    <string name="sauve">Sauvegarde</string>
+    <string name="nom_file">Le nom du fichier sera : </string>
+    <string name="nom_gpx">220714_nom-chemin.gpx</string>
+    <string name="sauvegarde">Sauvegarder dans la base ?</string>
+    <string name="Oui">Oui</string>
+    <string name="envoi_mail">Envoyer par e-mail ?</string>
+    <string name="appli_carto">Voir dans appli carto ?</string>
+    <string name="location_updated">Nouvelle position : %1s</string>
+    <string name="lit_dernier">Récupérer le dernier trajet</string>
+    <string name="lire_base">Lecture</string>
+    <string name="archive">Trajets archivés</string>
+    <string name="liste">Liste des trajets archivés</string>
+    <string name="par_date">par date</string>
+    <string name="par_nom">par nom</string>
+    <string name="iphigenie">Voir dans Iphigenie</string>
+    <string name="email">Envoi par e-mail</string>
+    <string name="voici">Il s\'agit de : </string>
+    <string name="nom_trajet">Nom du dernier trajet</string>
+    <string name="gestion_archive">Accès archives</string>
+
+</resources>
