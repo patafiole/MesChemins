@@ -155,7 +155,9 @@ public class ActOnChemin extends AppCompatActivity {
             cartoIntent.setFlags(FLAG_GRANT_READ_URI_PERMISSION);
             if (BuildConfig.DEBUG){
                 Log.i("APPCHEMINS", "cartointent = "+cartoIntent);}
-            startActivity(cartoIntent);
+            if (cartoIntent.resolveActivity(getPackageManager()) != null) {
+                startActivity(cartoIntent);
+            }
         });
 
 /*        final Observer<UnChemin> cheminObserver = new Observer<UnChemin>() {
@@ -261,11 +263,11 @@ public class ActOnChemin extends AppCompatActivity {
     }
 
     String lireChemin(Uri dbFile) throws IOException {
-        String result = "";
+        String result;
         InputStream inputStream = getContentResolver().openInputStream(dbFile);
         InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
         BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-        String temp = "";
+        String temp;
         StringBuilder stringBuilder = new StringBuilder();
         while((temp = bufferedReader.readLine()) != null)
         {

@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
 import java.io.IOException;
@@ -49,6 +50,8 @@ public class Archives extends AppCompatActivity {
         litDernier = findViewById(R.id.button5);
         versIphi = findViewById(R.id.ifi_button);
         versEmail = findViewById(R.id.mel_button);
+        triDates = findViewById(R.id.button6);
+        triNoms = findViewById(R.id.button7);
 
         modelMyWay = new ViewModelProvider(this).get(ModelChemin.class);
         aux = new AuxMethods();
@@ -56,9 +59,13 @@ public class Archives extends AppCompatActivity {
         litDernier.setOnClickListener(view-> {
             modelMyWay.getMonChemin().observe(this, chemin -> {
                 int rowid = chemin.getRowid();
+                String dateDuJour = chemin.getDatejour();
                 String nomDuChemin = chemin.getNomchemin();
                 String nomDuFichier = chemin.getNomfichier();
                 uriDernier = chemin.getUrifichier();
+                if (BuildConfig.DEBUG) {
+                    Log.i("APPCHEMINS", "champs " + rowid + ", " + dateDuJour +", "+ nomDuChemin + ", " + nomDuFichier +", "+ uriDernier);
+                }
  // pour vérifier (à enlever par la suite)
                 try {
                     String laTrace = aux.lireChemin(uriDernier);
@@ -86,7 +93,19 @@ public class Archives extends AppCompatActivity {
             sendToAppliCarto(uriDernier);
         });
 
-// TODO les boutons de liste par date et liste par nom
+        triDates.setOnClickListener( view -> {
+            String titre = "Liste par dates";
+            FragmentManager fm = getSupportFragmentManager();
+            FragmentListe listeFrag = FragmentListe.newInstance(titre);
+            listeFrag.show(fm, "listeDates");
+        });
+
+        triNoms.setOnClickListener( view -> {
+            String titre = "Liste par nom";
+            FragmentManager fm = getSupportFragmentManager();
+            FragmentListe listeFrag = FragmentListe.newInstance(titre);
+            listeFrag.show(fm, "listeNoms");
+        });
 
     }  // end onCreate
 
@@ -131,7 +150,7 @@ public class Archives extends AppCompatActivity {
 
     void sendToAppliCarto(Uri uriMonFichier) {
         Intent cartoIntent = new Intent(Intent.ACTION_VIEW, uriMonFichier);
-        cartoIntent.setPackage("com_iphigenie");
+        cartoIntent.setPackage("com.iphigenie");
         cartoIntent.setFlags(FLAG_GRANT_READ_URI_PERMISSION);
         if (BuildConfig.DEBUG){
             Log.i("APPCHEMINS", "cartointent = "+cartoIntent);}

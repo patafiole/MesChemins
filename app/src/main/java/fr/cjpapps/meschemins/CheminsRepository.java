@@ -9,10 +9,10 @@ import java.util.List;
 
 public class CheminsRepository {
 
-    private CheminsDao cheminsDao;
-    private LiveData<UnChemin> dernierChemin;
-    private LiveData<List<UnChemin>> allChemins;
-    private LiveData<List<UnChemin>> allNomsChemins;
+    private final CheminsDao cheminsDao;
+    private final LiveData<UnChemin> dernierChemin;
+    private final LiveData<List<UnChemin>> allChemins;
+    private final LiveData<List<UnChemin>> allNomsChemins;
 
     CheminsRepository (Application application){
         CheminsRoomDatabase db = CheminsRoomDatabase.getDatabase(application);

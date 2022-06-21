@@ -21,7 +21,7 @@ public interface CheminsDao {
     @Delete
     void delete(UnChemin chemin);
 
-    @Query("SELECT `rowid`,*  FROM meschemins ORDER BY rowid DESC")
+    @Query("SELECT `rowid`,*  FROM meschemins ORDER BY datejour DESC")
     LiveData<List<UnChemin>> getAllChemins();
 
     @Query("SELECT `rowid`,*  FROM meschemins ORDER BY nomchemin")
