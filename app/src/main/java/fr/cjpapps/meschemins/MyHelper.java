@@ -16,7 +16,7 @@ import java.io.File;
 
 import static android.content.Context.CONNECTIVITY_SERVICE;
 import static android.content.Context.MODE_PRIVATE;
-import static fr.cjpapps.meschemins.AuxGPX.getPrivateDocStorageDir;
+import static fr.cjpapps.meschemins.Aux.getPrivateDocStorageDir;
 import static fr.cjpapps.meschemins.MainActivity.PREF_FILE;
 
 class MyHelper {

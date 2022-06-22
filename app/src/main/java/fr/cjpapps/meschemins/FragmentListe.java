@@ -32,14 +32,16 @@ import java.util.List;
  */
 public class FragmentListe extends DialogFragment {
 
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "titre";
+// TODO pour delete supprimer le fichier en plus de l'entrée dans la base
 
+    /* Pour afficher la liste des chemins archivés */
+
+    private static final String ARG_PARAM1 = "titre";
     private String title;
     private static ModelChemin model;
     private TextView titreListe;
     private RecyclerView mRecyclerView;
-    RecyclerViewClickListener listener;
+    private RecyclerViewClickListener listener;
 
     public FragmentListe() {
         // Required empty public constructor
@@ -78,12 +80,15 @@ public class FragmentListe extends DialogFragment {
         assert getArguments() != null;
         title = getArguments().getString(ARG_PARAM1, "liste");
         titreListe.setText(title);
+// observateur pour recueillir la liste des chemins
         final Observer<List<UnChemin>> listeObserver = chemins -> {
             if (chemins != null) {
                 mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+// click listener sur les éléments de la recycler view
                 listener = (view1, position) -> {
                     UnChemin unC = chemins.get(position);
                     Uri uriFichier = unC.getUrifichier();
+        // pour voir sur Iphigenie
                     if(view1.getId() == R.id.iphi_button){
                         Intent cartoIntent = new Intent(Intent.ACTION_VIEW, uriFichier);
                         cartoIntent.setFlags(FLAG_GRANT_READ_URI_PERMISSION);
@@ -93,6 +98,7 @@ public class FragmentListe extends DialogFragment {
                             startActivity(cartoIntent);
                         }
                     }
+        // pour envoyer par email
                     if (view1.getId() == R.id.email_button) {
                         Intent intent = new Intent(Intent.ACTION_SEND);
                         intent.setType("*/*");
@@ -106,11 +112,16 @@ public class FragmentListe extends DialogFragment {
                             startActivity(intent);
                         }
                     }
-                };
+        // pour supprimer ce chemin de l'archive
+                    if (view1.getId() == R.id.delete_button) {
+                        model.deleteChemin(unC);
+                    }
+                };   // end listener
                 ArchivesAdapter mAdapter = new ArchivesAdapter(getActivity(), chemins, listener);
                 mRecyclerView.setAdapter(mAdapter);
             }
-        };
+        };   // end observer
+
         if ("Liste par noms".equals(title)) {
             model.getDesNomsChemins().observe(getViewLifecycleOwner(), listeObserver);
         }else{

@@ -26,7 +26,7 @@
     <string name="start">Debut</string>
     <string name="pause">Pause</string>
     <string name="resume">Reprise</string>
-    <string name="save">Sauvegarde</string>
+    <string name="save">Archiver</string>
     <string name="cancel">Annuler</string>
     <string name="actions">Sauvegarde/Partage</string>
     <string name="saisie_nom">Saisissez un nom pour l\'itinéraire</string>
@@ -48,6 +48,7 @@
     <string name="par_nom">par nom</string>
     <string name="iphigenie">Voir dans Iphigenie</string>
     <string name="email">Envoi par e-mail</string>
+    <string name="delete">Supprimer</string>
     <string name="voici">Il s\'agit de : </string>
     <string name="nom_trajet">Nom du dernier trajet</string>
     <string name="gestion_archive">Accès archives</string>

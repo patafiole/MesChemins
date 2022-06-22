@@ -49,6 +49,7 @@ public class ArchivesAdapter  extends RecyclerView.Adapter<ArchivesAdapter.MyVie
         final TextView listItemView;
         final ImageButton iphiItemView;
         final ImageButton emailItemView;
+        final ImageButton deleteItemView;
         final ArchivesAdapter mAdapter;
         final RecyclerViewClickListener mListener;
         MyViewHolder(View itemView, ArchivesAdapter adapter, RecyclerViewClickListener listener) {
@@ -56,11 +57,13 @@ public class ArchivesAdapter  extends RecyclerView.Adapter<ArchivesAdapter.MyVie
             listItemView = itemView.findViewById(R.id.un_trajet);
             iphiItemView = itemView.findViewById(R.id.iphi_button);
             emailItemView = itemView.findViewById(R.id.email_button);
+            deleteItemView = itemView.findViewById(R.id.delete_button);
             this.mAdapter = adapter;
             mListener = listener;
             listItemView.setOnClickListener(this);
             iphiItemView.setOnClickListener(this);
             emailItemView.setOnClickListener(this);
+            deleteItemView.setOnClickListener(this);
         }
 
         @Override

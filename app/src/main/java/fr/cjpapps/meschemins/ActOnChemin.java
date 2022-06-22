@@ -1,14 +1,18 @@
 package fr.cjpapps.meschemins;
 
 import static android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION;
-import static fr.cjpapps.meschemins.AuxGPX.faitGPXChemin;
 
-import android.content.Context;
+import static fr.cjpapps.meschemins.Aux.ecrireFichier;
+import static fr.cjpapps.meschemins.Aux.faitGPXChemin;
+import static fr.cjpapps.meschemins.Aux.getPrivateDocStorageDir;
+import static fr.cjpapps.meschemins.Aux.isExternalStorageWritable;
+import static fr.cjpapps.meschemins.Aux.lireFichier;
+import static fr.cjpapps.meschemins.Aux.removeAllAccents;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
@@ -23,22 +27,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.URI;
-import java.text.Normalizer;
 
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
-import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class ActOnChemin extends AppCompatActivity {
 
@@ -107,9 +103,13 @@ public class ActOnChemin extends AppCompatActivity {
                 mFile = new File(path, nomFichier);
                 Log.i("APPCHEMINS", "chemin du fichier = " + mFile);
 // fabriquer le contenu du fichier
-                fullTrack = AuxGPX.faitGPXChemin(nomChemin, track);
+                fullTrack = faitGPXChemin(nomChemin, track);
 // écrire le fichier et calculer son Uri
-                ecrireFichier(fullTrack);
+                if(isExternalStorageWritable()) {
+                    ecrireFichier(fullTrack, mFile);
+                }else{
+                    Toast.makeText(this, "On ne peut pas écrire", Toast.LENGTH_SHORT).show();
+                }
                 uriMonFichier = MyHelper.getInstance().recupURI(mFile);
 
                 editeur.putString("nomFichier", nomFichier);
@@ -122,14 +122,14 @@ public class ActOnChemin extends AppCompatActivity {
                 modelChemin.insertChemin(unChemin);
 
 // re lecture pour vérifier
-                try {
-                    String lecture = lireFichier(nomFichier);
+/*                try {
+                    String lecture = lireFichier(mFile);
                     if (BuildConfig.DEBUG) {
                         Log.i("APPCHEMINS", "fichier fut lu = " + lecture);
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
-                }
+                }  */
             }
         });  // end ok1 click listener
 
@@ -160,7 +160,8 @@ public class ActOnChemin extends AppCompatActivity {
             }
         });
 
-/*        final Observer<UnChemin> cheminObserver = new Observer<UnChemin>() {
+/*  En attente
+        final Observer<UnChemin> cheminObserver = new Observer<UnChemin>() {
             @Override
             public void onChanged(UnChemin chemin) {
                 int rowid = chemin.getRowid();
@@ -212,84 +213,6 @@ public class ActOnChemin extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    public static String removeAllAccents(@NonNull String s) {
-        String result = Normalizer.normalize(s, Normalizer.Form.NFD);
-        result = result.replaceAll("[^\\p{ASCII}]", "");
-        return result;
-    }
-
-/* Checks if external storage is available for read and write */
-    public boolean isExternalStorageWritable() {
-        String state = Environment.getExternalStorageState();
-        return Environment.MEDIA_MOUNTED.equals(state);
-    }
-
-    void ecrireFichier(String fullTrack){
-        if(isExternalStorageWritable()) {
-            try{
-                FileOutputStream stream = new FileOutputStream(mFile);
-                stream.write(fullTrack.getBytes());
-                stream.close();
-            }catch(Exception e){
-                e.printStackTrace();
-            }
-            if (BuildConfig.DEBUG){
-                Log.i("APPCHEMINS", "fichier écrit");}
-        }else{
-            Toast.makeText(this, "On ne peut pas écrire", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private String lireFichier(String nomFichier) throws IOException {
-        FileInputStream input;
-        int value;
-        StringBuilder lu = new StringBuilder();
-        try {
-            if(Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
-                input = new FileInputStream(mFile);
-                while ((value =input.read()) != -1) lu.append((char)value);
-//                        Toast.makeText(MainActivity.this, "Externe : "+ lu.toString(), Toast.LENGTH_SHORT).show();
-//                        Toast.makeText(MainActivity.this, mFile.getPath(), Toast.LENGTH_LONG).show();
-                input.close();
-            }
-        } catch (IOException e) {
-            Toast.makeText(getBaseContext(), e.getMessage(),Toast.LENGTH_SHORT).show();
-            e.printStackTrace();
-        }
-//        Toast.makeText(this, lu, Toast.LENGTH_LONG).show();
-        return lu.toString();
-    }
-
-    String lireChemin(Uri dbFile) throws IOException {
-        String result;
-        InputStream inputStream = getContentResolver().openInputStream(dbFile);
-        InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-        String temp;
-        StringBuilder stringBuilder = new StringBuilder();
-        while((temp = bufferedReader.readLine()) != null)
-        {
-            stringBuilder.append(temp);
-            stringBuilder.append("\n");
-        }
-        inputStream.close();
-        result = stringBuilder.toString();
-        return result;
-    }
-
-    public File getPrivateDocStorageDir(Context context, String mesDocs) {
-        // Get the directory for the app's private documents directory.
-        // DIRECTORY_DOCUMENTS n'existe que à partir de API 19
-        final String LOG_TAG ="Fichiers";
-        File file = new File(context.getExternalFilesDir(
-                Environment.DIRECTORY_DOCUMENTS), mesDocs);
-        Log.i("APPCHEMINS", "Point 4 "+file.getPath());
-        if (!file.mkdirs()) {
-            Log.e("APPCHEMINS", "Directory not created");
-        }
-        return file;
     }
 
 }

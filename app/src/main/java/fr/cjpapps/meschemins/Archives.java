@@ -30,7 +30,6 @@ public class Archives extends AppCompatActivity {
     Uri uriDernier ;
     ModelChemin modelMyWay;
     UnChemin leChemin;
-    AuxMethods aux;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +53,8 @@ public class Archives extends AppCompatActivity {
         triNoms = findViewById(R.id.button7);
 
         modelMyWay = new ViewModelProvider(this).get(ModelChemin.class);
-        aux = new AuxMethods();
 
+// lecture d dernier trajet enregistré ; après quoi on peut le visualiser dans iphigénie ou l'envoyer en pièce jinte à un email
         litDernier.setOnClickListener(view-> {
             modelMyWay.getMonChemin().observe(this, chemin -> {
                 int rowid = chemin.getRowid();
@@ -68,7 +67,7 @@ public class Archives extends AppCompatActivity {
                 }
  // pour vérifier (à enlever par la suite)
                 try {
-                    String laTrace = aux.lireChemin(uriDernier);
+                    String laTrace = Aux.lireChemin(uriDernier);
                     if (!"".equals(laTrace)) {
                         if (BuildConfig.DEBUG) {
                             Log.i("APPCHEMINS", "trace DB " + rowid + ", " + laTrace + ", " + nomDuChemin + ", " + nomDuFichier);
@@ -93,6 +92,7 @@ public class Archives extends AppCompatActivity {
             sendToAppliCarto(uriDernier);
         });
 
+// affichage de la liste des trajets archivés triés par dates
         triDates.setOnClickListener( view -> {
             String titre = "Liste par dates";
             FragmentManager fm = getSupportFragmentManager();
@@ -100,6 +100,7 @@ public class Archives extends AppCompatActivity {
             listeFrag.show(fm, "listeDates");
         });
 
+// affichage de la liste des trajets archivés triée par noms
         triNoms.setOnClickListener( view -> {
             String titre = "Liste par nom";
             FragmentManager fm = getSupportFragmentManager();

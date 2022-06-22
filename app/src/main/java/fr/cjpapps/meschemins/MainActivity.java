@@ -175,25 +175,19 @@ du système (Doze) et ceux des fabricants (économie d'énergie.
                 .addLocationRequest(request).build();
         LocationServices.getSettingsClient(this)
                 .checkLocationSettings(settingsRequest)
-                .addOnSuccessListener(this, new OnSuccessListener<LocationSettingsResponse>(){
-                    @Override
-                    public void onSuccess(LocationSettingsResponse locationSettingsResponse) {
-                        if (BuildConfig.DEBUG){
-                            Log.i("APPCHEMINS", "GPS success");}
-//                        Variables.isGPSAvailable = true;
-                    }
+                .addOnSuccessListener(this, locationSettingsResponse -> {
+                    if (BuildConfig.DEBUG){
+                        Log.i("APPCHEMINS", "GPS success");}
+//                      Variables.isGPSAvailable = true;
                 })
-                .addOnFailureListener(this, new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        if (BuildConfig.DEBUG) {
-                            Log.i("APPCHEMINS", "GPS failure");
-                        }
-//                                    Variables.isGPSAvailable = false;
-                        String message = "Attention, le GPS n'est pas activé.";
-                        DialogAlertes infoGPS = DialogAlertes.newInstance(message);
-                        infoGPS.show(getSupportFragmentManager(), "infoGPS");
+                .addOnFailureListener(this, e -> {
+                    if (BuildConfig.DEBUG) {
+                        Log.i("APPCHEMINS", "GPS failure");
                     }
+//                  Variables.isGPSAvailable = false;
+                    String message = "Attention, le GPS n'est pas activé.";
+                    DialogAlertes infoGPS = DialogAlertes.newInstance(message);
+                    infoGPS.show(getSupportFragmentManager(), "infoGPS");
                 });
     }
 
@@ -250,7 +244,7 @@ du système (Doze) et ceux des fabricants (économie d'énergie.
     }
 
     void checkLocPermission(){
-// vérification de la permission de localisation
+// vérification de la permission de localisation, sauf pour Android 10 (Q)
         if (ActivityCompat.checkSelfPermission( this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             // You can use the API that requires the permission.
@@ -272,10 +266,10 @@ du système (Doze) et ceux des fabricants (économie d'énergie.
     }
     @RequiresApi(api = Build.VERSION_CODES.Q)
     void checkLocPermissionCodeQ(){
-/* vérification de la permission de localisation pour SDK=29, Android 10. À partir de 10 il faut demander
+/* vérification de la permission de localisation pour SDK=29, Android 10. Pour 10 il faut demander
    explicitement la permission d'accès en background, cela peut se faire en même temps que les autres.
    Pour les versions suivantes il est interdit de faire la demande en même temps sous peine de n'avoir
-   aucune permission. Il faut la demander après en faisant passer le client par les paramètres */
+   aucune permission. Il faut la demander après en faisant passer le client par les paramètres du téléphone*/
         if (ActivityCompat.checkSelfPermission( this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_BACKGROUND_LOCATION) == PackageManager.PERMISSION_GRANTED) {
@@ -311,7 +305,7 @@ du système (Doze) et ceux des fabricants (économie d'énergie.
                             if (BuildConfig.DEBUG){
                                 Log.i("APPCHEMINS", "on obtient la permission");}
                      // pour Android > 10 on peut maintenant demander la permission de background
-                     // on reviendra ici par la flèche de retour arrière
+                     // on reviendra ici par la flèche de retour arrière du téléphone
                             if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.Q) {
                                 getBackgroundLocationPermission();
                             }
@@ -332,13 +326,11 @@ du système (Doze) et ceux des fabricants (économie d'énergie.
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
         alertDialog.setTitle("Backround Location");
         alertDialog.setMessage("Aller dans Paramètres pour permettre GPS en permanence ?");
-        alertDialog.setPositiveButton("Paramètres", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                if (BuildConfig.DEBUG){
-                    Log.i("APPCHEMINS", "on demande background permission");}
-                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                startActivity(intent);
-            }
+        alertDialog.setPositiveButton("Paramètres", (dialog, which) -> {
+            if (BuildConfig.DEBUG){
+                Log.i("APPCHEMINS", "on demande background permission");}
+            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+            startActivity(intent);
         });
         alertDialog.show();    }
 }

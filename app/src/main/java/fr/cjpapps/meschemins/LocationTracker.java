@@ -46,6 +46,8 @@ public class LocationTracker extends Service {
     private FusedLocationProviderClient mFusedLocationClient;
     private LocationCallback mLocationCallback;
 
+// variable "position" inutile dans la mesure où pour fonctionner pendant la veille on
+// utilise un broadcast pour envoyer la position
     private final MutableLiveData<Location> position = new MutableLiveData<>();
     MutableLiveData<Location> getPosition() { return position; }
 
@@ -63,11 +65,12 @@ public class LocationTracker extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+// maintenir le CPU en éveil
         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
         cpuWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
                 "MesChemins:gps_service");
         cpuWakeLock.acquire();  // en principe il fadrait un timeout pour être "bon citoyen"
-        createNotificationChannel();
+        createNotificationChannel();  // nécessaire pour fonctionner avec appli en veille
         handleLocation();
 //        Log.i("APPCHEMINS", "LocationTracker service created");
     }
@@ -157,14 +160,14 @@ public class LocationTracker extends Service {
     private void onNewLocation(Location location) {
 //        Log.i("APPCHEMINS", "New location: " + location);
         mLocation = location;
-        position.setValue(location);
+        position.setValue(location);  // pas utile actuellement
         // Notify anyone listening for broadcasts about the new location.
         Intent intent = new Intent(Constantes.ACTION_GETLOCATION);
         intent.putExtra(Constantes.EXTRA_LOCATION, location);
         LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
     }
 
-    void stopLocationUpdates(){
+    private void stopLocationUpdates(){
         mFusedLocationClient.removeLocationUpdates(mLocationCallback);
     }
 
