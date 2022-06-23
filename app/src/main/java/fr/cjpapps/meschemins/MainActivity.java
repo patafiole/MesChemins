@@ -69,13 +69,8 @@ du système (Doze) et ceux des fabricants (économie d'énergie.
 //    private AppBarConfiguration appBarConfiguration;
 //    private ActivityMainBinding binding;
 
-/* TODO     - rajouter bouton annuler dans main
-            - effacer la trace passée avant de commencer : était fait, remplacé apply par commit (tester
-                retour en arrière : le problème venait d'un getLastLocation itempestif)
-            - détection perte GPS ? pourquoi faire ?
-            - séparer demandes foreground et background location pour > Q : fait
+/* TODO     - détection perte GPS ? pourquoi faire ?
             - position pendant veille pas réglé : OK 8 sur A3 ; à vérifier pour plus récents
-            - affichage liste archives
             - tracé sur carte
 */
 
@@ -136,9 +131,7 @@ du système (Doze) et ceux des fabricants (économie d'énergie.
             }
         });
 
-        pause.setOnClickListener(view -> {
-            model.stopUpdatePosition();
-        });
+        pause.setOnClickListener(view -> model.stopUpdatePosition());
 
         resume.setOnClickListener(view -> {
             if (Variables.requestingLocationUpdates) {

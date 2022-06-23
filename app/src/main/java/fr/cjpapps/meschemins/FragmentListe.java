@@ -2,6 +2,8 @@ package fr.cjpapps.meschemins;
 
 import static android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION;
 
+import static fr.cjpapps.meschemins.Aux.getPrivateDocStorageDir;
+
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -23,6 +25,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -31,8 +34,6 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class FragmentListe extends DialogFragment {
-
-// TODO pour delete supprimer le fichier en plus de l'entrée dans la base
 
     /* Pour afficher la liste des chemins archivés */
 
@@ -115,6 +116,15 @@ public class FragmentListe extends DialogFragment {
         // pour supprimer ce chemin de l'archive
                     if (view1.getId() == R.id.delete_button) {
                         model.deleteChemin(unC);
+                        String nom = unC.getNomfichier();
+                        File path = getPrivateDocStorageDir(requireActivity(), "MesChemins");
+                        File file = new File(path, nom);
+//                        File file = new File(uriFichier.getPath());
+                        if (file.delete()) {
+                            Log.i("APPCHEMINS", "fichier supprimé "+file);
+                        }else{
+                            Log.i("APPCHEMINS", "fichier pas supprimé "+file);
+                        }
                     }
                 };   // end listener
                 ArchivesAdapter mAdapter = new ArchivesAdapter(getActivity(), chemins, listener);
