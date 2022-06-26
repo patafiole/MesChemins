@@ -27,6 +27,7 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.Priority;
 
 /* A partir de FaizanMubasher LocationTracker.java
 * https://gist.github.com/FaizanMubasher/095824dd720b24be88f6526128a7ca1b*/
@@ -134,7 +135,7 @@ public class LocationTracker extends Service {
         mLocationRequest = LocationRequest.create();
         mLocationRequest.setInterval(UPDATE_INTERVAL_IN_MILLISECONDS);
         mLocationRequest.setFastestInterval(2000);
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        mLocationRequest.setPriority(Priority.PRIORITY_HIGH_ACCURACY);
     }
 
     private void getLastLocation() {
@@ -165,6 +166,8 @@ public class LocationTracker extends Service {
         Intent intent = new Intent(Constantes.ACTION_GETLOCATION);
         intent.putExtra(Constantes.EXTRA_LOCATION, location);
         LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
+//        if (BuildConfig.DEBUG){
+//            Log.i("APPCHEMINS", "send broadcast ");}
     }
 
     private void stopLocationUpdates(){

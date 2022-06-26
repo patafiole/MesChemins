@@ -52,5 +52,6 @@
     <string name="voici">Il s\'agit de : </string>
     <string name="nom_trajet">Nom du dernier trajet</string>
     <string name="gestion_archive">Accès archives</string>
+    <string name="commands">Paneau de commandes</string>
 
 </resources>

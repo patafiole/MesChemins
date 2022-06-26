@@ -67,7 +67,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/coordonnees" />
 
-    <Button
+<!--    <Button
         android:id="@+id/bouton_start"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -130,6 +130,6 @@
         app:materialThemeOverlay="@style/ThemeOverlay.App.PrimarySecondary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/bouton_save"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent" />  -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

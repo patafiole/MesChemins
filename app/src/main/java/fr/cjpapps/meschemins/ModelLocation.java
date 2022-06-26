@@ -53,9 +53,6 @@ public class ModelLocation extends AndroidViewModel {
     void updatePosition() {
         if (BuildConfig.DEBUG){
         Log.i("APPCHEMINS", "model dans updateposition");}
-//        if (Variables.isGPSAvailable){
-//        repository.startLocationUpdates();
-//        }
         LocalBroadcastManager.getInstance(getApplication()).registerReceiver(broadcastReceiver, new IntentFilter(Constantes.ACTION_GETLOCATION));
     }
 

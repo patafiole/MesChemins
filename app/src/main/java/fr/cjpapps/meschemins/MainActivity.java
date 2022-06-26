@@ -19,8 +19,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.ViewModelProvider;
 
-import fr.cjpapps.meschemins.databinding.ActivityMainBinding;
-
 import android.provider.Settings;
 import android.util.Log;
 import android.view.Menu;
@@ -33,8 +31,10 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResponse;
+import com.google.android.gms.location.Priority;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -65,6 +65,7 @@ du système (Doze) et ceux des fabricants (économie d'énergie.
     Intent locationIntent;
     Boolean backgroundLocationGranted = false;
     Boolean foregroundLocationGranted = false;
+    FloatingActionButton fab = null;
 
 //    private AppBarConfiguration appBarConfiguration;
 //    private ActivityMainBinding binding;
@@ -73,6 +74,10 @@ du système (Doze) et ceux des fabricants (économie d'énergie.
             - position pendant veille pas réglé : OK 8 sur A3 ; à vérifier pour plus récents
             - tracé sur carte
 */
+/*  Noter :
+*       dans BottomFragment, ligne 40, la récup de l'instance du modèle se fait par l'intermédiaire de l'activité
+*       sinon le model disparait en même temps que le fragment et le broadcast receiver  avec : plus de trace !
+* */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +93,7 @@ du système (Doze) et ceux des fabricants (économie d'énergie.
         heure = findViewById(R.id.heure);
         coordonn = findViewById(R.id.coordonnees);
         accuracy = findViewById(R.id.accuracy);
+        fab = findViewById(R.id.fab);
         start = findViewById(R.id.bouton_start);
         pause = findViewById(R.id.bouton_pause);
         resume = findViewById(R.id.bouton_resume);
@@ -113,6 +119,12 @@ du système (Doze) et ceux des fabricants (économie d'énergie.
         editeur.putBoolean("fileReady", false);
         editeur.commit();
 
+        if (android.os.Build.VERSION.SDK_INT == android.os.Build.VERSION_CODES.Q) {
+            checkLocPermissionCodeQ();
+        }else{
+            checkLocPermission();
+        }
+
 // observateur de la position GPS
         model.getTableauPosition().observe(this, tableau -> {
             heure.setText(tableau.get("heure"));
@@ -121,39 +133,12 @@ du système (Doze) et ceux des fabricants (économie d'énergie.
             accuracy.setText(getString(R.string.precision,tableau.getOrDefault("precision","")));
         });
 
-        start.setOnClickListener(view -> {
-            editeur.putString("leChemin", "");
-            editeur.commit();
-            if (android.os.Build.VERSION.SDK_INT == android.os.Build.VERSION_CODES.Q) {
-                checkLocPermissionCodeQ();
-            }else{
-                checkLocPermission();
-            }
-        });
+// floating action button pour monter le fragment des commandes
+        fab.setOnClickListener(( view -> {
+            BottomFragment bottomFragment = BottomFragment.getInstance();
+            bottomFragment.showNow(getSupportFragmentManager(), "MODAL");
+        }));
 
-        pause.setOnClickListener(view -> model.stopUpdatePosition());
-
-        resume.setOnClickListener(view -> {
-            if (Variables.requestingLocationUpdates) {
-                model.updatePosition();
-            }
-        });
-
-        save.setOnClickListener(view -> {
-            model.stopUpdatePosition();
-            Intent finChemin = new Intent(this, ActOnChemin.class);
-            startActivity(finChemin);
-        });
-
-        cancel.setOnClickListener(view -> {
-            model.stopUpdatePosition();
-            heure.setText(getString(R.string.real_time));
-            alti.setText(getString(R.string.alti));
-            coordonn.setText(getString(R.string.loc));
-            accuracy.setText(getString(R.string.accuracy));
-            editeur.putString("leChemin", "");
-            editeur.apply();
-        });
     }   // end onCreate
 
 
@@ -163,7 +148,7 @@ du système (Doze) et ceux des fabricants (économie d'énergie.
      * de lui signaler que son GPS n'est pas activé. A lui d'y aller s'il ouhaite avoir une position*/
     private void checkGPSEnabled() {
         LocationRequest request = LocationRequest.create()
-                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+                .setPriority(Priority.PRIORITY_HIGH_ACCURACY);
         LocationSettingsRequest settingsRequest = new LocationSettingsRequest.Builder()
                 .addLocationRequest(request).build();
         LocationServices.getSettingsClient(this)
@@ -244,7 +229,6 @@ du système (Doze) et ceux des fabricants (économie d'énergie.
             if (BuildConfig.DEBUG){
                 Log.i("APPCHEMINS", "on a déja la permission");}
             startService(locationIntent);
-            model.updatePosition();
             Variables.requestingLocationUpdates = true;
         } else {
             // You can directly ask for the permission.
@@ -270,7 +254,6 @@ du système (Doze) et ceux des fabricants (économie d'énergie.
             if (BuildConfig.DEBUG){
                 Log.i("APPCHEMINS", "on a déja la permission");}
             startService(locationIntent);
-            model.updatePosition();
             Variables.requestingLocationUpdates = true;
         } else {
             // You can directly ask for the permission.
@@ -303,8 +286,9 @@ du système (Doze) et ceux des fabricants (économie d'énergie.
                                 getBackgroundLocationPermission();
                             }
                             startService(locationIntent);
-                            model.updatePosition();
                             Variables.requestingLocationUpdates = true;
+                            if (BuildConfig.DEBUG){
+                                Log.i("APPCHEMINS", "3 updates request "+Variables.requestingLocationUpdates);}
                         } else if (coarseLocationGranted != null && coarseLocationGranted) {
                             // Only approximate location access granted.
                             Toast.makeText(this, "Pas de localisation possible", Toast.LENGTH_LONG).show();
