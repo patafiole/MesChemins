@@ -5,12 +5,14 @@
       <map>
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.189" />
         <entry key="app/src/main/res/drawable/ic_action_help_svg.xml" value="0.167" />
+        <entry key="app/src/main/res/drawable/ic_launcher_MesChemins_background.xml" value="0.1875" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.189" />
         <entry key="app/src/main/res/drawable/iphi_background.xml" value="0.215" />
         <entry key="app/src/main/res/drawable/item_list_background.xml" value="0.2345" />
         <entry key="app/src/main/res/layout-land/content_actonchemin.xml" value="0.24895833333333334" />
         <entry key="app/src/main/res/layout-land/content_archives.xml" value="0.375" />
         <entry key="app/src/main/res/layout-land/content_main.xml" value="0.2630208333333333" />
+        <entry key="app/src/main/res/layout-land/modal_bottom_sheet.xml" value="0.46306306306306305" />
         <entry key="app/src/main/res/layout/activity_actonchemin.xml" value="0.18177083333333333" />
         <entry key="app/src/main/res/layout/activity_archives.xml" value="0.22708333333333333" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.26614583333333336" />

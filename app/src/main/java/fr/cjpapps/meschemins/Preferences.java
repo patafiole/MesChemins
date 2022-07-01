@@ -1,4 +1,6 @@
 package fr.cjpapps.meschemins;
 
-public class Preferences {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class Preferences extends AppCompatActivity {
 }

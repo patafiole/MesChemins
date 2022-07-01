@@ -4,14 +4,11 @@ import static android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION;
 
 import static fr.cjpapps.meschemins.Aux.getPrivateDocStorageDir;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;

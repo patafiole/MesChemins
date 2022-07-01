@@ -37,16 +37,16 @@
         </Space>
 
         <Button
-        android:id="@+id/bouton_pause"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
-        android:layout_marginBottom="4dp"
-        android:layout_marginEnd="4dp"
-        android:text="@string/pause"
-        android:layout_weight="1"
-        style="@style/Widget.MaterialComponents.Button"
-         />
+            android:id="@+id/bouton_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginEnd="2dp"
+            android:text="@string/save"
+            android:layout_weight="1"
+            style="@style/Widget.MaterialComponents.Button"
+            />
 
         <Space
             android:layout_width="0dp"
@@ -55,16 +55,16 @@
         </Space>
 
         <Button
-        android:id="@+id/bouton_resume"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
-        android:layout_marginBottom="4dp"
-        android:layout_marginEnd="4dp"
-        android:text="@string/resume"
-        android:layout_weight="1"
-        style="@style/Widget.MaterialComponents.Button"
-        />
+            android:id="@+id/bouton_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginEnd="4dp"
+            android:text="@string/cancel"
+            android:layout_weight="1"
+            style="@style/Widget.MaterialComponents.Button"
+            />
 
         <Space
             android:layout_width="0dp"
@@ -87,15 +87,16 @@
         </Space>
 
         <Button
-        android:id="@+id/bouton_save"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="34dp"
-        android:layout_marginEnd="17dp"
-        android:text="@string/save"
-        style="@style/Widget.MaterialComponents.Button"
-        />
+            android:id="@+id/bouton_pause"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="34dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="17dp"
+            android:text="@string/pause"
+            android:layout_weight="1"
+            style="@style/Widget.MaterialComponents.Button"
+            />
 
         <Space
             android:layout_width="0dp"
@@ -104,15 +105,16 @@
         </Space>
 
         <Button
-        android:id="@+id/bouton_cancel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="17dp"
-        android:layout_marginEnd="34dp"
-        android:text="@string/cancel"
-        style="@style/Widget.MaterialComponents.Button"
-         />
+            android:id="@+id/bouton_resume"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="17dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="34dp"
+            android:text="@string/resume"
+            android:layout_weight="1"
+            style="@style/Widget.MaterialComponents.Button"
+            />
 
         <Space
             android:layout_width="0dp"

@@ -1,4 +1,6 @@
 package fr.cjpapps.meschemins;
 
-public class Aide {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class Aide extends AppCompatActivity {
 }

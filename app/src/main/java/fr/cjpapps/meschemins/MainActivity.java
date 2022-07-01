@@ -1,7 +1,6 @@
 package fr.cjpapps.meschemins;
 
 import android.Manifest;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -71,7 +70,7 @@ du système (Doze) et ceux des fabricants (économie d'énergie.
 //    private ActivityMainBinding binding;
 
 /* TODO     - détection perte GPS ? pourquoi faire ?
-            - position pendant veille pas réglé : OK 8 sur A3 ; à vérifier pour plus récents
+            - position pendant veille pas réglé : OK 8 sur A3 et 10 sur Huawei P20. Plus récents ?
             - tracé sur carte
 */
 /*  Noter :
@@ -194,6 +193,8 @@ du système (Doze) et ceux des fabricants (économie d'énergie.
             return true;
         }
         if (id == R.id.action_settings) {
+            Intent settings = new Intent(MainActivity.this, Preferences.class);
+            startActivity(settings);
             return true;
         }
         return super.onOptionsItemSelected(item);

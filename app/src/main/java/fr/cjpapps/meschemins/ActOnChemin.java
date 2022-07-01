@@ -25,14 +25,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 
@@ -160,7 +155,7 @@ public class ActOnChemin extends AppCompatActivity {
             }
         });
 
-/*  En attente
+/*  En attente d'une carte affichée
         final Observer<UnChemin> cheminObserver = new Observer<UnChemin>() {
             @Override
             public void onChanged(UnChemin chemin) {

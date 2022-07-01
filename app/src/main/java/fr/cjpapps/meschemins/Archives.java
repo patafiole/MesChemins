@@ -2,7 +2,6 @@ package fr.cjpapps.meschemins;
 
 import static android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
