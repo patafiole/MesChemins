@@ -69,9 +69,14 @@ du système (Doze) et ceux des fabricants (économie d'énergie.
 //    private AppBarConfiguration appBarConfiguration;
 //    private ActivityMainBinding binding;
 
-/* TODO     - détection perte GPS ? pourquoi faire ?
-            - position pendant veille pas réglé : OK 8 sur A3 et 10 sur Huawei P20. Plus récents ?
+/* TODO     - passer à 5 secondes ; plus tard mettre choix 2, 5 et 10
+            - moyenner sur 3, 5 ou sept points
+            - trakseg quand pause
+            - mettre au propre DateTime dans ModelLocation
+            - détection perte GPS ? pour quoi faire ?
+            - position pendant veille testé seulement pour 8 sur A3 et 10 sur Huawei P20.
             - tracé sur carte
+            - recherche dans les archives
 */
 /*  Noter :
 *       dans BottomFragment, ligne 40, la récup de l'instance du modèle se fait par l'intermédiaire de l'activité
@@ -169,7 +174,7 @@ du système (Doze) et ceux des fabricants (économie d'énergie.
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(@NonNull Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
@@ -193,7 +198,7 @@ du système (Doze) et ceux des fabricants (économie d'énergie.
             return true;
         }
         if (id == R.id.action_settings) {
-            Intent settings = new Intent(MainActivity.this, Preferences.class);
+            Intent settings = new Intent(MainActivity.this, KParameters.class);
             startActivity(settings);
             return true;
         }

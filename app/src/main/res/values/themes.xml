@@ -30,8 +30,10 @@
     </style>
 
     <style name="MyApp.Button" parent="@style/Widget.MaterialComponents.Button">
-        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.MyApp.MaterialButton</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.MyApp.MaterialButton
+        </item>
     </style>
+
     <style name="ShapeAppearanceOverlay.MyApp.MaterialButton" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">20dp</item>
@@ -39,7 +41,7 @@
 
 </resources>
 
-<!-- valeurs originales
+    <!-- valeurs originales
 colorPrymary            purple500
 colorPrimaryVariant     purple700
 colorSecondary          teal200

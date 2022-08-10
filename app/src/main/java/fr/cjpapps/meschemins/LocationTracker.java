@@ -33,8 +33,7 @@ import com.google.android.gms.location.Priority;
 public class LocationTracker extends Service {
 
     private static final long UPDATE_INTERVAL_IN_MILLISECONDS = 5000; // Every 5 Seconds
-    private static final long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS =
-            UPDATE_INTERVAL_IN_MILLISECONDS / 2;
+    private static final long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS = 5000;
     private PowerManager.WakeLock cpuWakeLock;
 
     public static final String CHANNEL_ID = "my_channel_id";
@@ -132,7 +131,7 @@ public class LocationTracker extends Service {
     private void createLocationRequest() {
         mLocationRequest = LocationRequest.create();
         mLocationRequest.setInterval(UPDATE_INTERVAL_IN_MILLISECONDS);
-        mLocationRequest.setFastestInterval(2000);
+        mLocationRequest.setFastestInterval(FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS);
         mLocationRequest.setPriority(Priority.PRIORITY_HIGH_ACCURACY);
     }
 
@@ -157,15 +156,17 @@ public class LocationTracker extends Service {
     }
 
     private void onNewLocation(Location location) {
-//        Log.i("APPCHEMINS", "New location: " + location);
+        Log.i("APPCHEMINS", "New location: " + location);
         mLocation = location;
         position.setValue(location);  // pas utile actuellement
         // Notify anyone listening for broadcasts about the new location.
         Intent intent = new Intent(Constantes.ACTION_GETLOCATION);
         intent.putExtra(Constantes.EXTRA_LOCATION, location);
-        LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
 //        if (BuildConfig.DEBUG){
-//            Log.i("APPCHEMINS", "send broadcast ");}
+//            Log.i("APPCHEMINS", "intent = "+intent);}
+        LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
+        if (BuildConfig.DEBUG){
+            Log.i("APPCHEMINS", "send broadcast ");}
     }
 
     private void stopLocationUpdates(){

@@ -87,11 +87,15 @@ public class ModelLocation extends AndroidViewModel {
     };
 
     void ajoutTrackPoint(Location location) {
+//        if(BuildConfig.DEBUG) {
+//            Log.i("APPCHEMINS", "Reçue dans model: " + location);}
         HashMap<String, String> paramsPosition = new HashMap<>();
         String trackPoint;
         String textAlti = "";
         double accuracy = 100.0;
         String precision = "";
+/*  TODO revoir le bazar de date et time il nous faut avoir l'heure "maintenant" et la sortir dans le format pour GPS et
+     le format HH-mm-ss*/
         Instant instant = Instant.now(); // Current moment in UTC.
         String timeLocation = instant.toString();  // au format ISO 8601, ex : 2016-03-23T03:09:01.613Z
         Date cetInstant = Date.from(instant);
@@ -106,6 +110,9 @@ public class ModelLocation extends AndroidViewModel {
         if (location.hasAccuracy()) {
             accuracy = location.getAccuracy();
             precision = String.valueOf((int) accuracy);
+            if (BuildConfig.DEBUG) {
+                Log.i("APPCHEMINS", "précision = " + precision);
+            }
 //        }
             if (accuracy <= 30.0) {
                 trackPoint = resources.getString(R.string.trkpt, latitudeStr, longitudeStr, textAlti, timeLocation);

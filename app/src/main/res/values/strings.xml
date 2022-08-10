@@ -54,5 +54,6 @@
     <string name="gestion_archive">Accès archives</string>
     <string name="commands">Paneau de commandes</string>
     <string name="settings">Préférences</string>
+    <string name="title_activity_kparameters">KParameters</string>
 
 </resources>

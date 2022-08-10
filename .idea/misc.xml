@@ -11,14 +11,17 @@
         <entry key="app/src/main/res/drawable/item_list_background.xml" value="0.2345" />
         <entry key="app/src/main/res/layout-land/content_actonchemin.xml" value="0.24895833333333334" />
         <entry key="app/src/main/res/layout-land/content_archives.xml" value="0.375" />
+        <entry key="app/src/main/res/layout-land/content_kparameters.xml" value="0.1875" />
         <entry key="app/src/main/res/layout-land/content_main.xml" value="0.2630208333333333" />
         <entry key="app/src/main/res/layout-land/modal_bottom_sheet.xml" value="0.46306306306306305" />
         <entry key="app/src/main/res/layout/activity_actonchemin.xml" value="0.18177083333333333" />
         <entry key="app/src/main/res/layout/activity_archives.xml" value="0.22708333333333333" />
+        <entry key="app/src/main/res/layout/activity_kparameters.xml" value="0.17552083333333332" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.26614583333333336" />
         <entry key="app/src/main/res/layout/activity_preferences.xml" value="0.22447916666666667" />
         <entry key="app/src/main/res/layout/content_actonchemin.xml" value="0.33" />
         <entry key="app/src/main/res/layout/content_archives.xml" value="0.22708333333333333" />
+        <entry key="app/src/main/res/layout/content_kparameters.xml" value="0.17552083333333332" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.22" />
         <entry key="app/src/main/res/layout/content_preferences.xml" value="0.5" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.14791666666666667" />
