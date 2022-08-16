@@ -179,7 +179,7 @@ public class ActOnChemin extends AppCompatActivity {
     }       //end de onCreate()
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(@NonNull Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_actions, menu);
         return true;
@@ -203,7 +203,7 @@ public class ActOnChemin extends AppCompatActivity {
             return true;
         }
         if (id == R.id.action_settings) {
-            Intent settings = new Intent(this, Preferences.class);
+            Intent settings = new Intent(this, KParameters.class);
             startActivity(settings);
             return true;
         }

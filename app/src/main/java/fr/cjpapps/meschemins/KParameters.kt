@@ -24,7 +24,7 @@ class KParameters : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityKparametersBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.included.choixfrequ.text = "zozo"
+
         setSupportActionBar(binding.toolbar)
 
         when(gpsInterval) {
@@ -44,15 +44,15 @@ class KParameters : AppCompatActivity() {
             val valeur : String = rB.text as String
             editeur.putInt("gps_interval", valeur.toInt())
             editeur.apply()
-            Log.i("APPCHEMINS", "GPS interval = "+valeur)
+            Log.i("APPCHEMINS", "GPS interval set = "+valeur)
         }
 
         binding.included.groupfiltre.setOnCheckedChangeListener { group, checkedId ->
             val rB : RadioButton = findViewById(checkedId)
             val valeur : String = rB.text as String
-            editeur.putInt("gps_interval", valeur.toInt())
+            editeur.putInt("filter_length", valeur.toInt())
             editeur.apply()
-            Log.i("APPCHEMINS", "longueur filtre = "+valeur)
+            Log.i("APPCHEMINS", "longueur filtre set = "+valeur)
         }
 
         binding.included.buttonfin.setOnClickListener() { view ->

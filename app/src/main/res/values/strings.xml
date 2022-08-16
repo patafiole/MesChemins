@@ -55,5 +55,8 @@
     <string name="commands">Paneau de commandes</string>
     <string name="settings">Préférences</string>
     <string name="title_activity_kparameters">KParameters</string>
+    <string name="pref_interval">Intervalle entre positions (secondes)\nL\'appli doit être redémarrée pour que
+    la modification prenne effet. La trace en cours sera perdue si elle n\'est pas enregistrée</string>
+    <string name="pref_filtre">Longueur du filtre </string>
 
 </resources>

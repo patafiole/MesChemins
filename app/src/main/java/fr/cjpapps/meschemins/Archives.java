@@ -14,6 +14,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
@@ -110,7 +111,7 @@ public class Archives extends AppCompatActivity {
     }  // end onCreate
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(@NonNull Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
@@ -129,7 +130,7 @@ public class Archives extends AppCompatActivity {
             return true;
         }
         if (id == R.id.action_settings) {
-            Intent settings = new Intent(this, Preferences.class);
+            Intent settings = new Intent(this, KParameters.class);
             startActivity(settings);
             return true;
         }

@@ -7,6 +7,7 @@ import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.IBinder;
@@ -44,10 +45,14 @@ public class LocationTracker extends Service {
     private FusedLocationProviderClient mFusedLocationClient;
     private LocationCallback mLocationCallback;
 
-// variable "position" inutile dans la mesure où pour fonctionner pendant la veille on
+// variable "position" inutilisée dans la mesure où pour fonctionner pendant la veille on
 // utilise un broadcast pour envoyer la position
     private final MutableLiveData<Location> position = new MutableLiveData<>();
     MutableLiveData<Location> getPosition() { return position; }
+
+    SharedPreferences mesPrefs;
+    long gpsInterval;
+    int filterLength;
 
 
     public LocationTracker() {
@@ -69,6 +74,12 @@ public class LocationTracker extends Service {
                 "MesChemins:gps_service");
         cpuWakeLock.acquire();  // en principe il fadrait un timeout pour être "bon citoyen"
         createNotificationChannel();  // nécessaire pour fonctionner avec appli en veille
+
+// récupération préférences
+        mesPrefs =  MyHelper.getInstance().recupPrefs();
+        gpsInterval = mesPrefs.getInt("gps_interval", 5);
+        filterLength = mesPrefs.getInt("filter_length", 0);
+
         handleLocation();
 //        Log.i("APPCHEMINS", "LocationTracker service created");
     }
@@ -130,8 +141,10 @@ public class LocationTracker extends Service {
      */
     private void createLocationRequest() {
         mLocationRequest = LocationRequest.create();
-        mLocationRequest.setInterval(UPDATE_INTERVAL_IN_MILLISECONDS);
-        mLocationRequest.setFastestInterval(FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS);
+        if (BuildConfig.DEBUG){
+            Log.i("APPCHEMINS", "GPS interval = "+gpsInterval);}
+        mLocationRequest.setInterval(gpsInterval);
+        mLocationRequest.setFastestInterval(gpsInterval);
         mLocationRequest.setPriority(Priority.PRIORITY_HIGH_ACCURACY);
     }
 
