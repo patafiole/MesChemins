@@ -110,6 +110,16 @@ du système (Doze) et ceux des fabricants (économie d'énergie.
         mesPrefs =  MyHelper.getInstance(getApplicationContext()).recupPrefs();
         SharedPreferences.Editor editeur = mesPrefs.edit();
 
+        if (!mesPrefs.contains("gps_interval")) {
+            editeur.putInt("gps_interval", 5);
+            editeur.apply();
+        }
+        if (!mesPrefs.contains("filter_length")) {
+            editeur.putInt("filter_length", 0);
+            editeur.apply();
+        }
+
+
         checkGPSEnabled(); // ceci informe l'utilisateur si ce n'est pas le cas
 
         model = new ViewModelProvider(this).get(ModelLocation.class);
