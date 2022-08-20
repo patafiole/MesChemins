@@ -33,10 +33,10 @@ class KParameters : AppCompatActivity() {
             10 -> binding.included.dix.setChecked(true)
         }
         when(filterLength) {
-            0 -> binding.included.z0?.setChecked(true)
-            3 -> binding.included.z3?.setChecked(true)
-            5 -> binding.included.z5?.setChecked(true)
-            7 -> binding.included.z7?.setChecked(true)
+            1 -> binding.included.z1.setChecked(true)
+            3 -> binding.included.z3.setChecked(true)
+            5 -> binding.included.z5.setChecked(true)
+            7 -> binding.included.z7.setChecked(true)
         }
 
         binding.included.groupfreq.setOnCheckedChangeListener { group, checkedId ->

@@ -69,10 +69,10 @@ du système (Doze) et ceux des fabricants (économie d'énergie.
 //    private AppBarConfiguration appBarConfiguration;
 //    private ActivityMainBinding binding;
 
-/* TODO     - passer à 5 secondes ; plus tard mettre choix 2, 5 et 10
-            - moyenner sur 3, 5 ou sept points
+/* TODO     - moyenner sur 3, 5 ou sept points
             - trakseg quand pause
             - mettre au propre DateTime dans ModelLocation
+            - prendre en compte géoïde
             - détection perte GPS ? pour quoi faire ?
             - position pendant veille testé seulement pour 8 sur A3 et 10 sur Huawei P20.
             - tracé sur carte

@@ -79,25 +79,25 @@
             app:layout_constraintStart_toEndOf="@id/groupfreq"
             app:layout_constraintTop_toBottomOf="@id/choixfiltre" >
             <RadioButton
-                android:id="@+id/iphi"
+                android:id="@+id/z1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="0"
+                android:text="1"
                 />
             <RadioButton
-                android:id="@+id/vranger"
+                android:id="@+id/z3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="3"
                 />
             <RadioButton
-                android:id="@+id/mtrails"
+                android:id="@+id/z5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="5"
                 />
             <RadioButton
-                android:id="@+id/orux"
+                android:id="@+id/z7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="7"
