@@ -15,16 +15,28 @@
         tools:showIn="@layout/activity_kparameters">
 
         <TextView
+            android:id="@+id/titleprefs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="72dp"
+            android:layout_marginHorizontal="20dp"
+            android:gravity="center_horizontal"
+            android:text="@string/title_prefs"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
             android:id="@+id/choixfrequ"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="72dp"
+            android:layout_marginTop="24dp"
             android:text="@string/pref_interval"
             android:textStyle="bold"
-            android:gravity="center_horizontal"
             app:layout_constraintEnd_toStartOf="@id/choixfiltre"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/titleprefs" />
 
         <RadioGroup
             android:id="@+id/groupfreq"
@@ -60,19 +72,18 @@
             android:id="@+id/choixfiltre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="72dp"
-            android:gravity="center_horizontal"
+            android:layout_marginTop="24dp"
             android:text="@string/pref_filtre"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/choixfrequ"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/titleprefs" />
 
         <RadioGroup
             android:id="@+id/groupfiltre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checkedButton="@+id/iphi"
+            android:checkedButton="@+id/z1"
             android:orientation="vertical"
             android:layout_marginTop="10dp"
             app:layout_constraintEnd_toEndOf="parent"

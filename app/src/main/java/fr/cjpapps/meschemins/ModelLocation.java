@@ -16,6 +16,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
@@ -30,7 +31,6 @@ public class ModelLocation extends AndroidViewModel {
     private final SharedPreferences.Editor editeur;
     private final Resources resources;
     final SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
-
 
     public ModelLocation(Application application) {
         super (application);
@@ -81,6 +81,8 @@ public class ModelLocation extends AndroidViewModel {
                 finish();
             } */
             Location location = intent.getParcelableExtra(Constantes.EXTRA_LOCATION);
+            if (BuildConfig.DEBUG){
+                Log.i("APPCHEMINS", "model loc reçue "+location.toString());}
             positionActuelle.setValue(location);
             ajoutTrackPoint(location);
         }
