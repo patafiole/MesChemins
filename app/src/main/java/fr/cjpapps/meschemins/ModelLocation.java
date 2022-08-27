@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.icu.text.SimpleDateFormat;
 import android.location.Location;
 import android.util.Log;
 
@@ -16,8 +15,8 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Locale;
 
@@ -25,17 +24,14 @@ public class ModelLocation extends AndroidViewModel {
 
     private final MutableLiveData<Location> positionActuelle = new MutableLiveData<>();
     private final MutableLiveData<HashMap<String, String>> tableauPosition = new MutableLiveData<>();
-//    private final LocRepository repository = null;
     private Intent locationIntent;
     private final SharedPreferences mesPrefs;
     private final SharedPreferences.Editor editeur;
     private final Resources resources;
-    final SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 
     public ModelLocation(Application application) {
         super (application);
-/*        repository = new LocRepository(application);
-        positionActuelle = repository.getPosition(); */
         mesPrefs =  MyHelper.getInstance().recupPrefs();
         editeur = mesPrefs.edit();
         resources = MyHelper.getInstance().recupResources();
@@ -43,12 +39,6 @@ public class ModelLocation extends AndroidViewModel {
 
     MutableLiveData<Location> getPositionActuelle() { return positionActuelle; }
     MutableLiveData<HashMap<String, String>> getTableauPosition() { return tableauPosition; }
-
-/*    void trouvePosition() {
-        if (BuildConfig.DEBUG){
-        Log.i("APPCHEMINS", "model dans trouveposition");}
-        repository.findPosition();
-    } */
 
     void updatePosition() {
         if (BuildConfig.DEBUG){
@@ -60,10 +50,6 @@ public class ModelLocation extends AndroidViewModel {
 //        repository.stopLocationUpdates();
         LocalBroadcastManager.getInstance(getApplication()).unregisterReceiver(broadcastReceiver);
     }
-
-/*    void changeRequest(){
-        repository.changeRequestInterval();
-    }*/
 
     @Override
     public void onCleared(){
@@ -89,19 +75,14 @@ public class ModelLocation extends AndroidViewModel {
     };
 
     void ajoutTrackPoint(Location location) {
-//        if(BuildConfig.DEBUG) {
-//            Log.i("APPCHEMINS", "Reçue dans model: " + location);}
         HashMap<String, String> paramsPosition = new HashMap<>();
         String trackPoint;
         String textAlti = "";
         double accuracy = 100.0;
         String precision = "";
-/*  TODO revoir le bazar de date et time il nous faut avoir l'heure "maintenant" et la sortir dans le format pour GPS et
-     le format HH-mm-ss*/
         Instant instant = Instant.now(); // Current moment in UTC.
         String timeLocation = instant.toString();  // au format ISO 8601, ex : 2016-03-23T03:09:01.613Z
-        Date cetInstant = Date.from(instant);
-        String maintenant = sdf.format(cetInstant);
+        String maintenant = LocalTime.now().format(formatter);
         double latitude = location.getLatitude();
         String latitudeStr = String.format(Locale.US, "%.5f", latitude);
         double longitude = location.getLongitude();
@@ -136,5 +117,4 @@ public class ModelLocation extends AndroidViewModel {
             }
         }
     }
-
 }

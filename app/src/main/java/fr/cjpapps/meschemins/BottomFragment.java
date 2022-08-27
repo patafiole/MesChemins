@@ -76,6 +76,9 @@ public class BottomFragment extends BottomSheetDialogFragment {
             if (BuildConfig.DEBUG){
                 Log.i("APPCHEMINS", "bouton resume");}
             if (Variables.requestingLocationUpdates) {
+                String track = mesPrefs.getString("leChemin", "");
+                editeur.putString("leChemin", track + Aux.GPXD);
+                editeur.apply();
                 model.updatePosition();
             }else{
                 Toast.makeText(requireActivity(), "Pas de localisation possible", Toast.LENGTH_LONG).show();

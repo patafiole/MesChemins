@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.ui.AppBarConfiguration;
 
 import android.provider.Settings;
 import android.util.Log;
@@ -38,41 +39,33 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import fr.cjpapps.meschemins.databinding.ActivityMainBinding;
+
 // @RequiresApi(api = Build.VERSION_CODES.Q)
 public class MainActivity extends AppCompatActivity {
 
-/* Pour continuer à saisir la posqition GPS lorsqu'on met le téléphone en poche il faut déjouer les piège
-du système (Doze) et ceux des fabricants (économie d'énergie.
+/* Pour continuer à saisir la posqition GPS lorsqu'on met le téléphone en poche il faut déjouer les pièges
+du système (Doze) et ceux des fabricants (économie d'énergie).
 * Exemple Samsung A3 :
 * -- paramètres > applis > menu >> accès spécial > optimiser batterie == veiller àà ce que MesChemins
 *  ne soit pas cochée pour être optimisable
 * -- paramètres > maintenance > batterie > contrôle énergie == veiller à ce que MesChemins ne puisse pas
-*  être interdites de batteries si elle sont en arrière plan
+*  être interdite de batteries si elle est en arrière plan
 * */
     ModelLocation model;
-    TextView alti = null;
-    TextView heure = null;
-    TextView coordonn = null;
-    TextView accuracy = null;
-    Button start = null;
-    Button pause = null;
-    Button resume = null;
-    Button save = null;
-    Button cancel = null;
     SharedPreferences mesPrefs;
+    SharedPreferences.Editor editeur;
     final static String PREF_FILE = "mesInfos";
     Intent locationIntent;
     Boolean backgroundLocationGranted = false;
     Boolean foregroundLocationGranted = false;
     FloatingActionButton fab = null;
 
-//    private AppBarConfiguration appBarConfiguration;
-//    private ActivityMainBinding binding;
+    private AppBarConfiguration appBarConfiguration;
+    private ActivityMainBinding binding;
 
-/* TODO     - moyenner sur 3, 5 ou sept points
-            - trakseg quand pause
-            - mettre au propre DateTime dans ModelLocation
-            - prendre en compte géoïde
+/* TODO     - prendre en compte géoïde
+            - moyenner sur 3, 5 ou sept points ? lors de l'enregistrement du fichier ? au désarchivage ?
             - détection perte GPS ? pour quoi faire ?
             - position pendant veille testé seulement pour 8 sur A3 et 10 sur Huawei P20.
             - tracé sur carte
@@ -86,29 +79,15 @@ du système (Doze) et ceux des fabricants (économie d'énergie.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-/*        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        setSupportActionBar(binding.toolbar); */
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        alti = findViewById(R.id.alti);
-        heure = findViewById(R.id.heure);
-        coordonn = findViewById(R.id.coordonnees);
-        accuracy = findViewById(R.id.accuracy);
-        fab = findViewById(R.id.fab);
-        start = findViewById(R.id.bouton_start);
-        pause = findViewById(R.id.bouton_pause);
-        resume = findViewById(R.id.bouton_resume);
-        save = findViewById(R.id.bouton_save);
-        cancel = findViewById(R.id.bouton_cancel);
+        setSupportActionBar(binding.toolbar);
 
 // au passage, création de l'instance de MyHelper qui va stocker le contexte de l'application. Cela permettra de
 // récupérer le context et donc en particulier les préférences de n'importe où en récupérant l'instance sans avoir
 //   à passer de contexte
         mesPrefs =  MyHelper.getInstance(getApplicationContext()).recupPrefs();
-        SharedPreferences.Editor editeur = mesPrefs.edit();
+        editeur = mesPrefs.edit();
 
         if (!mesPrefs.contains("gps_interval")) {
             editeur.putInt("gps_interval", 5);
@@ -141,14 +120,14 @@ du système (Doze) et ceux des fabricants (économie d'énergie.
 
 // observateur de la position GPS
         model.getTableauPosition().observe(this, tableau -> {
-            heure.setText(tableau.get("heure"));
-            alti.setText(getString(R.string.altitude,tableau.getOrDefault("altitude", "")));
-            coordonn.setText(getString(R.string.lat_lon, tableau.get("lat"), tableau.get("lon")));
-            accuracy.setText(getString(R.string.precision,tableau.getOrDefault("precision","")));
+            binding.inclMain.heure.setText(tableau.get("heure"));
+            binding.inclMain.alti.setText(getString(R.string.altitude,tableau.getOrDefault("altitude", "")));
+            binding.inclMain.coordonnees.setText(getString(R.string.lat_lon, tableau.get("lat"), tableau.get("lon")));
+            binding.inclMain.accuracy.setText(getString(R.string.precision,tableau.getOrDefault("precision","")));
         });
 
 // floating action button pour monter le fragment des commandes
-        fab.setOnClickListener(( view -> {
+        binding.fab.setOnClickListener(( view -> {
             BottomFragment bottomFragment = BottomFragment.getInstance();
             bottomFragment.showNow(getSupportFragmentManager(), "MODAL");
         }));
@@ -257,6 +236,7 @@ du système (Doze) et ceux des fabricants (économie d'énergie.
             });
         }
     }
+
     @RequiresApi(api = Build.VERSION_CODES.Q)
     void checkLocPermissionCodeQ(){
 /* vérification de la permission de localisation pour SDK=29, Android 10. Pour 10 il faut demander

@@ -21,6 +21,7 @@ public class Aux {
     static final private String GPXA ="<?xml version=\"1.0\"?><gpx><trk><name>";
     static final private String GPXB ="</name><trkseg>";
     static final private String GPXC ="</trkseg></trk></gpx>";
+    static final String GPXD = "</trkseg><trkseg>";
 
     static String faitGPXChemin(String name, String track){
         String cheminGPX = GPXA+name+GPXB+track+GPXC;
