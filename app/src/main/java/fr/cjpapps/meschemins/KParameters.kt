@@ -3,13 +3,10 @@ package fr.cjpapps.meschemins
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
 import android.widget.RadioButton
-import android.widget.RadioGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.ui.AppBarConfiguration
 import fr.cjpapps.meschemins.databinding.ActivityKparametersBinding
-import fr.cjpapps.meschemins.databinding.ContentKparametersBinding
 
 class KParameters : AppCompatActivity() {
 
@@ -39,7 +36,7 @@ class KParameters : AppCompatActivity() {
             7 -> binding.included.z7.setChecked(true)
         }
 
-        binding.included.groupfreq.setOnCheckedChangeListener { group, checkedId ->
+        binding.included.groupfreq.setOnCheckedChangeListener { _, checkedId ->
             val rB : RadioButton = findViewById(checkedId)
             val valeur : String = rB.text as String
             editeur.putInt("gps_interval", valeur.toInt())
@@ -47,7 +44,7 @@ class KParameters : AppCompatActivity() {
             Log.i("APPCHEMINS", "GPS interval set = "+valeur)
         }
 
-        binding.included.groupfiltre.setOnCheckedChangeListener { group, checkedId ->
+        binding.included.groupfiltre.setOnCheckedChangeListener { _, checkedId ->
             val rB : RadioButton = findViewById(checkedId)
             val valeur : String = rB.text as String
             editeur.putInt("filter_length", valeur.toInt())
@@ -55,7 +52,7 @@ class KParameters : AppCompatActivity() {
             Log.i("APPCHEMINS", "longueur filtre set = "+valeur)
         }
 
-        binding.included.buttonfin.setOnClickListener() { view ->
+        binding.included.buttonfin.setOnClickListener() {
             finish()
         }
     }

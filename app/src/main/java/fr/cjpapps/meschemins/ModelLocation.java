@@ -87,8 +87,16 @@ public class ModelLocation extends AndroidViewModel {
         String latitudeStr = String.format(Locale.US, "%.5f", latitude);
         double longitude = location.getLongitude();
         String longitudeStr = String.format(Locale.US, "%.5f", longitude);
+
+        if (!mesPrefs.getBoolean("encours", false)) {
+            editeur.putFloat("valgeoide", Aux.getGeoidValue(latitude, longitude));
+            editeur.putBoolean("encours", true);
+            editeur.commit();
+        }
+
         if (location.hasAltitude()) {
-            double altitude = location.getAltitude();
+            Log.i("APPCHEMINS", "valgeoide = " + mesPrefs.getFloat("valgeoide", 48.6f));
+            double altitude = location.getAltitude() - mesPrefs.getFloat("valgeoide", 48.6f);
             textAlti = String.valueOf((int) altitude); }
         if (location.hasAccuracy()) {
             accuracy = location.getAccuracy();

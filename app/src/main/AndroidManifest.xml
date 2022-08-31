@@ -31,10 +31,10 @@
             android:name=".KParameters"
             android:exported="false"
             android:label="@string/settings"
-            android:theme="@style/Theme.MesChemins.NoActionBar" >
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value="fr.cjpapps.meschemins.MainActivity" />
+            android:theme="@style/Theme.MesChemins.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="fr.cjpapps.meschemins.MainActivity" />
         </activity>
         <activity
             android:name=".MainActivity"

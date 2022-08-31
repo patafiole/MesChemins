@@ -54,6 +54,7 @@ public class BottomFragment extends BottomSheetDialogFragment {
             if (BuildConfig.DEBUG){
                 Log.i("APPCHEMINS", "bouton start");}
             editeur.putString("leChemin", "");
+            editeur.putBoolean("encours", false);
             editeur.commit();
             if (BuildConfig.DEBUG){
                 Log.i("APPCHEMINS", "4 updates request "+Variables.requestingLocationUpdates);}

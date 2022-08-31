@@ -99,4 +99,18 @@ public class Aux {
         return result;
     }
 
+    static float getGeoidValue(double lat, double lon) {
+//grille entre latitudes 41 et 53    , longitudes -6 à 10 . Valeur moyenne sur le grille 48.6 m ; voir Constantes
+      /*  if (Double.compare(lat, 41.0d) < 0 || Double.compare(lat, 53.0d) > 0 || Double.compare(lon, -6.0d) < 0 ||
+                Double.compare(lon, 10.0d) > 0) { return 48.6f;}  */
+            int i = (int) ((lat - 41.0) / 4.0);
+            float fractI = (float) (((lat - 41.0) % 4) / 4.0);
+            float complI = (float) (1.0 - fractI);
+            int j = (int) ((lon + 6.0) / 4.0);
+            float fractJ = (float) (((lon + 6.0) % 4) / 4.0);
+            float complJ = (float) (1.0 - fractJ);
+            return (complI * complJ * Constantes.geoide[i][j] + fractI * complJ * Constantes.geoide[i + 1][j] +
+                    fractJ * complI * Constantes.geoide[i][j + 1] + fractI * fractJ * Constantes.geoide[i + 1][j + 1]);
+    }
+
 }

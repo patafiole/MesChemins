@@ -59,5 +59,8 @@
     les modifications prennent effet. La trace en cours sera perdue si elle n\'est pas enregistrée</string>
     <string name="pref_interval">Intervalle positions \n(secondes)</string>
     <string name="pref_filtre">Longueur du filtre\n (pas utilisé actuellement) </string>
-
+    <string name="title_activity_ajout_geoide">AjoutGeoide</string>
+    <string name="howto_geoide">Le fichier contenant le géoide doit être dans le dossier "DOWNLOAD"</string>
+    <string name="install_geoide">Installer le géoîde</string>
+    <string name="add_geoid">Importer géoîde</string>
 </resources>

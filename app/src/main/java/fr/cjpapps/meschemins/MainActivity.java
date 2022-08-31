@@ -14,7 +14,6 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -23,17 +22,12 @@ import android.provider.Settings;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
-import com.google.android.gms.location.LocationSettingsResponse;
 import com.google.android.gms.location.Priority;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.time.LocalDate;
@@ -64,8 +58,7 @@ du système (Doze) et ceux des fabricants (économie d'énergie).
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
 
-/* TODO     - prendre en compte géoïde
-            - moyenner sur 3, 5 ou sept points ? lors de l'enregistrement du fichier ? au désarchivage ?
+/* TODO     - moyenner sur 3, 5 ou sept points ? lors de l'enregistrement du fichier ? au désarchivage ?
             - détection perte GPS ? pour quoi faire ?
             - position pendant veille testé seulement pour 8 sur A3 et 10 sur Huawei P20.
             - tracé sur carte
