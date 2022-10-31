@@ -4,14 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="fr.cjpapps.meschemins.MainActivity">
     <item
-        android:id="@+id/help"
+        android:id="@+id/search_bar"
         android:orderInCategory="1"
+        android:title="@string/search"
+        android:icon="@drawable/ic_action_search"
+        app:showAsAction="ifRoom"
+        app:actionViewClass="android.widget.SearchView" />
+    <item
+        android:id="@+id/help"
+        android:orderInCategory="2"
         android:title="@string/help"
         android:icon="@drawable/ic_action_help_svg"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="never" />
     <item
         android:id="@+id/action_settings"
-        android:orderInCategory="2"
+        android:orderInCategory="3"
         android:title="@string/action_settings"
         app:showAsAction="never" />
 </menu>

@@ -77,7 +77,7 @@ public class LocationTracker extends Service {
 
 // récupération préférences
         mesPrefs =  MyHelper.getInstance().recupPrefs();
-        gpsInterval = mesPrefs.getInt("gps_interval", 5);
+        gpsInterval = (long) 1000 * mesPrefs.getInt("gps_interval", 5);
         filterLength = mesPrefs.getInt("filter_length", 0);
 
         handleLocation();
@@ -169,7 +169,7 @@ public class LocationTracker extends Service {
     }
 
     private void onNewLocation(Location location) {
-        Log.i("APPCHEMINS", "New location: " + location);
+//        Log.i("APPCHEMINS", "New location: " + location);
         mLocation = location;
         position.setValue(location);  // pas utile actuellement
         // Notify anyone listening for broadcasts about the new location.
@@ -179,7 +179,8 @@ public class LocationTracker extends Service {
 //            Log.i("APPCHEMINS", "intent = "+intent);}
         LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
         if (BuildConfig.DEBUG){
-            Log.i("APPCHEMINS", "send broadcast ");}
+//            Log.i("APPCHEMINS", "send broadcast ");
+            }
     }
 
     private void stopLocationUpdates(){

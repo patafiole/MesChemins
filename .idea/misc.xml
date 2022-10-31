@@ -18,6 +18,7 @@
         <entry key="app/src/main/res/layout/activity_ajout_geoide.xml" value="0.18072916666666666" />
         <entry key="app/src/main/res/layout/activity_archives.xml" value="0.22708333333333333" />
         <entry key="app/src/main/res/layout/activity_kparameters.xml" value="0.17552083333333332" />
+        <entry key="app/src/main/res/layout/activity_ksearch.xml" value="0.1515625" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.26614583333333336" />
         <entry key="app/src/main/res/layout/activity_preferences.xml" value="0.22447916666666667" />
         <entry key="app/src/main/res/layout/content_actonchemin.xml" value="0.33" />
@@ -40,6 +41,7 @@
         <entry key="app/src/main/res/menu/menu_main.xml" value="0.26614583333333336" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/iphi.xml" value="0.189" />
         <entry key="app/src/main/res/xml/filepaths.xml" value="0.26614583333333336" />
+        <entry key="app/src/main/res/xml/searchable.xml" value="0.15052083333333333" />
       </map>
     </option>
   </component>

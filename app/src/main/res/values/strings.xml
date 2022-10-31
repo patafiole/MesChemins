@@ -63,4 +63,7 @@
     <string name="howto_geoide">Le fichier contenant le géoide doit être dans le dossier "DOWNLOAD"</string>
     <string name="install_geoide">Installer le géoîde</string>
     <string name="add_geoid">Importer géoîde</string>
+    <string name="search_hint">élements du nom ou de la date</string>
+    <string name="title_activity_ksearch">KSearch</string>
+    <string name="search">Rechercher</string>
 </resources>

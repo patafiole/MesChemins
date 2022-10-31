@@ -2,6 +2,8 @@ package fr.cjpapps.meschemins;
 
 import static android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -11,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +44,8 @@ public class Archives extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+
+        handleIntent(getIntent());
 
         SharedPreferences mesPrefs = MyHelper.getInstance().recupPrefs();
         SharedPreferences.Editor editeur = mesPrefs.edit();
@@ -95,25 +100,52 @@ public class Archives extends AppCompatActivity {
 // affichage de la liste des trajets archivés triés par dates
         triDates.setOnClickListener( view -> {
             String titre = "Liste par dates";
+            String titreCourt ="dates";
             FragmentManager fm = getSupportFragmentManager();
-            FragmentListe listeFrag = FragmentListe.newInstance(titre);
+            FragmentListe listeFrag = FragmentListe.newInstance(titre, titreCourt);
             listeFrag.show(fm, "listeDates");
         });
 
 // affichage de la liste des trajets archivés triée par noms
         triNoms.setOnClickListener( view -> {
-            String titre = "Liste par nom";
+            String titre = "Liste par noms";
+            String titreCourt = "noms";
             FragmentManager fm = getSupportFragmentManager();
-            FragmentListe listeFrag = FragmentListe.newInstance(titre);
+            FragmentListe listeFrag = FragmentListe.newInstance(titre, titreCourt);
             listeFrag.show(fm, "listeNoms");
         });
 
     }  // end onCreate
 
     @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+        handleIntent(intent);
+    }
+
+    private void handleIntent(Intent intent) {
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            String query = intent.getStringExtra(SearchManager.QUERY);
+            doMySearch(query);
+        }
+    }
+
+    private void doMySearch(String query) {
+        Log.i("APPCHEMINS", "dans doMySearch " + query);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(@NonNull Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_archives, menu);
+        // Get the SearchView and set the searchable configuration
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.search_bar).getActionView();
+        // Assumes current activity is the searchable activity
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setIconifiedByDefault(true); // If false, do not iconify the widget; expand it by default
+        searchView.setSubmitButtonEnabled(true);
         return true;
     }
 
@@ -136,6 +168,7 @@ public class Archives extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
     void sendByEmail(Uri uriMonFichier){
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("*/*");

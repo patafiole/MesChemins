@@ -35,8 +35,10 @@ public class FragmentListe extends DialogFragment {
     /* Pour afficher la liste des chemins archivés */
 
     private static final String ARG_PARAM1 = "titre";
+    private static final String ARG_PARAM2 = "titre_court";
     private String title;
-    private static ModelChemin model;
+    private String shortTitle;
+    private static ModelChemin modelMyWay;
     private TextView titreListe;
     private RecyclerView mRecyclerView;
     private RecyclerViewClickListener listener;
@@ -45,10 +47,11 @@ public class FragmentListe extends DialogFragment {
         // Required empty public constructor
     }
 
-    public static FragmentListe newInstance(String titre) {
+    public static FragmentListe newInstance(String titre, String titreCourt) {
         FragmentListe fragment = new FragmentListe();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, titre);
+        args.putString(ARG_PARAM2, titreCourt);
         fragment.setArguments(args);
         return fragment;
     }
@@ -58,7 +61,8 @@ public class FragmentListe extends DialogFragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             title = getArguments().getString(ARG_PARAM1);
-            model = new ViewModelProvider(requireActivity()).get(ModelChemin.class);
+            shortTitle = getArguments().getString(ARG_PARAM2);
+            modelMyWay = new ViewModelProvider(requireActivity()).get(ModelChemin.class);
         }
     }
 
@@ -68,7 +72,6 @@ public class FragmentListe extends DialogFragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_liste, container, false);
         titreListe = v.findViewById(R.id.nom_liste);
-        titreListe.setText(title);
         mRecyclerView = v.findViewById(R.id.listechemins);
         return v;
     }
@@ -112,7 +115,7 @@ public class FragmentListe extends DialogFragment {
                     }
         // pour supprimer ce chemin de l'archive
                     if (view1.getId() == R.id.delete_button) {
-                        model.deleteChemin(unC);
+                        modelMyWay.deleteChemin(unC);
                         String nom = unC.getNomfichier();
                         File path = getPrivateDocStorageDir(requireActivity(), "MesChemins");
                         File file = new File(path, nom);
@@ -129,10 +132,10 @@ public class FragmentListe extends DialogFragment {
             }
         };   // end observer
 
-        if ("Liste par noms".equals(title)) {
-            model.getDesNomsChemins().observe(getViewLifecycleOwner(), listeObserver);
+        if ("noms".equals(shortTitle)) {
+             modelMyWay.getDesNomsChemins().observe(getViewLifecycleOwner(), listeObserver);
         }else{
-            model.getDesChemins().observe(getViewLifecycleOwner(), listeObserver);
+            modelMyWay.getDesChemins().observe(getViewLifecycleOwner(), listeObserver);
         }
     }
 }
