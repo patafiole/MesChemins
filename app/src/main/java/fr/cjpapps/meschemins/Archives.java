@@ -27,11 +27,20 @@ import java.io.IOException;
 
 public class Archives extends AppCompatActivity {
 
+/* en cas de recherche, dès le traitement de l'intent (ligne 57) handleIntent puis doMySearch lancent le fragment
+*  avec la query (sans passer par l'instanciation du viewModel). Cette query sera utilisée pour activer la DAO
+*  à travers model puis repository sans stockage intermédiaire de la liveData (c'est Room qui s'en occupe ??).
+*  Le constructeur du Model puis celui du REpository sont exécutés une fois lors de l'ouverture de Archives,
+*  mais pas lorsque Archives est relancé par l'intent de la query de recherche (mode signle top) ni par le
+*  constructeur du fragment qui récupère l'instance crée par l'activité Archives.
+*  Au total, pas besoin de passer la query au viewModel, donc pas besoin de factory */
+
     TextView nomDernier;
     Button litDernier, triDates, triNoms ;
     ImageButton versIphi, versEmail;
     Uri uriDernier ;
     ModelChemin modelMyWay;
+    String searchQuery = "";
     UnChemin leChemin;
 
     @Override
@@ -101,8 +110,9 @@ public class Archives extends AppCompatActivity {
         triDates.setOnClickListener( view -> {
             String titre = "Liste par dates";
             String titreCourt ="dates";
+            String query = "";
             FragmentManager fm = getSupportFragmentManager();
-            FragmentListe listeFrag = FragmentListe.newInstance(titre, titreCourt);
+            FragmentListe listeFrag = FragmentListe.newInstance(titre, titreCourt, query);
             listeFrag.show(fm, "listeDates");
         });
 
@@ -110,8 +120,9 @@ public class Archives extends AppCompatActivity {
         triNoms.setOnClickListener( view -> {
             String titre = "Liste par noms";
             String titreCourt = "noms";
+            String query = "";
             FragmentManager fm = getSupportFragmentManager();
-            FragmentListe listeFrag = FragmentListe.newInstance(titre, titreCourt);
+            FragmentListe listeFrag = FragmentListe.newInstance(titre, titreCourt, query);
             listeFrag.show(fm, "listeNoms");
         });
 
@@ -132,7 +143,11 @@ public class Archives extends AppCompatActivity {
     }
 
     private void doMySearch(String query) {
-        Log.i("APPCHEMINS", "dans doMySearch " + query);
+        String titre = "résultat recherche";
+        String titreCourt = "search";
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentListe listeFrag = FragmentListe.newInstance(titre, titreCourt, query);
+        listeFrag.show(fm, "listeSearch");
     }
 
     @Override

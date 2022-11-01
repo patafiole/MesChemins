@@ -36,8 +36,10 @@ public class FragmentListe extends DialogFragment {
 
     private static final String ARG_PARAM1 = "titre";
     private static final String ARG_PARAM2 = "titre_court";
+    private static final String ARG_PARAM3 = "query";
     private String title;
     private String shortTitle;
+    private String query;
     private static ModelChemin modelMyWay;
     private TextView titreListe;
     private RecyclerView mRecyclerView;
@@ -47,11 +49,12 @@ public class FragmentListe extends DialogFragment {
         // Required empty public constructor
     }
 
-    public static FragmentListe newInstance(String titre, String titreCourt) {
+    public static FragmentListe newInstance(String titre, String titreCourt, String query) {
         FragmentListe fragment = new FragmentListe();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, titre);
         args.putString(ARG_PARAM2, titreCourt);
+        args.putString(ARG_PARAM3, query);
         fragment.setArguments(args);
         return fragment;
     }
@@ -62,6 +65,9 @@ public class FragmentListe extends DialogFragment {
         if (getArguments() != null) {
             title = getArguments().getString(ARG_PARAM1);
             shortTitle = getArguments().getString(ARG_PARAM2);
+            query = getArguments().getString(ARG_PARAM3, "");
+            if (BuildConfig.DEBUG){
+                Log.i("APPCHEMINS", "onCreate fragment = "+query);}
             modelMyWay = new ViewModelProvider(requireActivity()).get(ModelChemin.class);
         }
     }
@@ -134,8 +140,12 @@ public class FragmentListe extends DialogFragment {
 
         if ("noms".equals(shortTitle)) {
              modelMyWay.getDesNomsChemins().observe(getViewLifecycleOwner(), listeObserver);
-        }else{
+        }else if ("dates".equals(shortTitle)){
             modelMyWay.getDesChemins().observe(getViewLifecycleOwner(), listeObserver);
+        }else {
+/*  dans le cas d'une recherche, l'observateur verrait directement une liveData dans Room puisque elle n'est
+*   ni dans le Model ni dans le Repository ?? */
+            modelMyWay.getSearchResults(query).observe(getViewLifecycleOwner(), listeObserver);
         }
     }
 }

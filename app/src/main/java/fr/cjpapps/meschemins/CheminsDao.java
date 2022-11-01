@@ -30,4 +30,6 @@ public interface CheminsDao {
     @Query("SELECT `rowid`,*   FROM meschemins ORDER BY rowid DESC LIMIT 1 ")
     LiveData<UnChemin> getDernierChemin();
 
+    @Query("SELECT `rowid`,* FROM meschemins WHERE (nomchemin LIKE '%' || :search_query || '%')")
+    LiveData<List<UnChemin>> getPattern(String search_query);
 }
