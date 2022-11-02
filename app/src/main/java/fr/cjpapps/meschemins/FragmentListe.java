@@ -133,7 +133,7 @@ public class FragmentListe extends DialogFragment {
                         }
                     }
                 };   // end listener
-                ArchivesAdapter mAdapter = new ArchivesAdapter(getActivity(), chemins, listener);
+                ArchivesAdapter mAdapter = new ArchivesAdapter(getActivity(), chemins, listener, shortTitle);
                 mRecyclerView.setAdapter(mAdapter);
             }
         };   // end observer

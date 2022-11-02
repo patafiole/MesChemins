@@ -27,9 +27,10 @@ import java.io.IOException;
 
 public class Archives extends AppCompatActivity {
 
-/* en cas de recherche, dès le traitement de l'intent (ligne 57) handleIntent puis doMySearch lancent le fragment
+/* en cas de recherche, dès le traitement de l'intent (ligne 58) handleIntent puis doMySearch lancent le fragment
 *  avec la query (sans passer par l'instanciation du viewModel). Cette query sera utilisée pour activer la DAO
-*  à travers model puis repository sans stockage intermédiaire de la liveData (c'est Room qui s'en occupe ??).
+*  à travers model puis repository sans stockage intermédiaire de la liveData (c'est Room qui s'en occupe à
+*  condition que les méthodes de la DAO renvoient des LiveData. Un observateur peut alors être n'importe où).
 *  Le constructeur du Model puis celui du REpository sont exécutés une fois lors de l'ouverture de Archives,
 *  mais pas lorsque Archives est relancé par l'intent de la query de recherche (mode signle top) ni par le
 *  constructeur du fragment qui récupère l'instance crée par l'activité Archives.

@@ -17,11 +17,13 @@ public class ArchivesAdapter  extends RecyclerView.Adapter<ArchivesAdapter.MyVie
     final List<UnChemin> mesData;
     final LayoutInflater mInflater;
     final RecyclerViewClickListener listener;
+    final String champ;
 
-    ArchivesAdapter(Context context, List<UnChemin> maList, RecyclerViewClickListener mlistener) {
+    ArchivesAdapter(Context context, List<UnChemin> maList, RecyclerViewClickListener mlistener, String champ) {
         mInflater = LayoutInflater.from(context);
         this.mesData = maList;
         this.listener = mlistener;
+        this.champ = champ;
     }
 
     @NonNull
@@ -36,7 +38,13 @@ public class ArchivesAdapter  extends RecyclerView.Adapter<ArchivesAdapter.MyVie
     public void onBindViewHolder(@NonNull ArchivesAdapter.MyViewHolder holder, int position) {
         // connecte les données au ViewHolder
         UnChemin mCurrent = mesData.get(position);
-        holder.listItemView.setText(mCurrent.getNomchemin());
+        if("noms".equals(champ)) {
+            holder.listItemView.setText(mCurrent.getNomchemin());
+        }else if("dates".equals(champ)) {
+            holder.listItemView.setText(mCurrent.getNomfichier());
+        }else{
+            holder.listItemView.setText(mCurrent.getNomfichier());
+        }
     }
 
     @Override
