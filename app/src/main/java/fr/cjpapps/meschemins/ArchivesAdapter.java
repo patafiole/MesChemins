@@ -19,6 +19,7 @@ public class ArchivesAdapter  extends RecyclerView.Adapter<ArchivesAdapter.MyVie
     final RecyclerViewClickListener listener;
     final String champ;
 
+// champ indique ce qui sera utilisé pour l'affichage dans la liste
     ArchivesAdapter(Context context, List<UnChemin> maList, RecyclerViewClickListener mlistener, String champ) {
         mInflater = LayoutInflater.from(context);
         this.mesData = maList;
