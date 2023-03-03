@@ -116,6 +116,8 @@ public class ActOnChemin extends AppCompatActivity {
                 unChemin = new UnChemin(dateDuJour, nomChemin, nomFichier, uriMonFichier);
                 modelChemin.insertChemin(unChemin);
 
+                leNom.setText("");
+
 // re lecture pour vérifier
 /*                try {
                     String lecture = lireFichier(mFile);
