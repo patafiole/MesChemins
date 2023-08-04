@@ -40,6 +40,7 @@ public class ActOnChemin extends AppCompatActivity {
     String track, fullTrack;
     Button okUn;
     EditText leNom;
+    TextView annonce;
     TextView fileName;
     Button ouiUn;
     Button ouiDeux;
@@ -75,6 +76,7 @@ public class ActOnChemin extends AppCompatActivity {
         modelChemin = new ViewModelProvider(this).get(ModelChemin.class);
 
         leNom = findViewById(R.id.editTextTextPersonName);
+        annonce = findViewById(R.id.textView4);
         okUn = findViewById(R.id.button);
         fileName = findViewById(R.id.textView3);
         ouiDeux = findViewById(R.id.button3);
@@ -117,6 +119,7 @@ public class ActOnChemin extends AppCompatActivity {
                 modelChemin.insertChemin(unChemin);
 
                 leNom.setText("");
+                annonce.setText(getString(R.string.OKsave));
 
 // re lecture pour vérifier
 /*                try {

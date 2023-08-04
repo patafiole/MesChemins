@@ -12,9 +12,11 @@
         android:layout_marginTop="72dp"
         android:text= "@string/alti"
         android:gravity="center_horizontal"
-        app:layout_constraintEnd_toStartOf="@id/heure"
+        android:textSize="60sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/heure" />
 
     <TextView
         android:id="@+id/heure"
@@ -23,8 +25,10 @@
         android:layout_marginTop="72dp"
         android:text="@string/real_time"
         android:gravity="center_horizontal"
+        android:textSize="22sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/alti"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -38,7 +42,7 @@
         android:textSize="17sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/heure" />
+        app:layout_constraintTop_toBottomOf="@id/alti" />
 
     <TextView
         android:id="@+id/coordonnees"

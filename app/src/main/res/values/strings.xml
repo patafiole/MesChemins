@@ -26,14 +26,15 @@
     <string name="start">Debut</string>
     <string name="pause">Pause</string>
     <string name="resume">Reprise</string>
-    <string name="save">Archiver</string>
+    <string name="save">Stop et Archive</string>
+    <string name="OKsave">Le fichier a été archivé</string>
     <string name="cancel">Annuler</string>
     <string name="actions">Sauvegarde/Partage</string>
     <string name="saisie_nom">Saisissez un nom pour l\'itinéraire</string>
     <string name="nom_itineraire">nom de l\'itinéraire</string>
     <string name="OK">OK</string>
     <string name="sauve">Sauvegarde</string>
-    <string name="nom_file">Le nom du fichier sera : </string>
+    <string name="nom_file">Le nom du fichier est : </string>
     <string name="nom_gpx">220714_nom-chemin.gpx</string>
     <string name="sauvegarde">Sauvegarder dans la base ?</string>
     <string name="Oui">Oui</string>

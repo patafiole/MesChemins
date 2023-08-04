@@ -25,15 +25,15 @@ class KParameters : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
 
         when(gpsInterval) {
-            2 -> binding.included.deux.setChecked(true)
-            5 -> binding.included.cinq.setChecked(true)
-            10 -> binding.included.dix.setChecked(true)
+            2 -> binding.included.deux.isChecked = true
+            5 -> binding.included.cinq.isChecked = true
+            10 -> binding.included.dix.isChecked = true
         }
         when(filterLength) {
-            1 -> binding.included.z1.setChecked(true)
-            3 -> binding.included.z3.setChecked(true)
-            5 -> binding.included.z5.setChecked(true)
-            7 -> binding.included.z7.setChecked(true)
+            1 -> binding.included.z1.isChecked = true
+            3 -> binding.included.z3.isChecked = true
+            5 -> binding.included.z5.isChecked = true
+            7 -> binding.included.z7.isChecked = true
         }
 
         binding.included.groupfreq.setOnCheckedChangeListener { _, checkedId ->
@@ -52,7 +52,7 @@ class KParameters : AppCompatActivity() {
             Log.i("APPCHEMINS", "longueur filtre set = "+valeur)
         }
 
-        binding.included.buttonfin.setOnClickListener() {
+        binding.included.buttonfin.setOnClickListener {
             finish()
         }
     }

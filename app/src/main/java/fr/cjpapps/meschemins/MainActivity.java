@@ -61,7 +61,7 @@ du système (Doze) et ceux des fabricants (économie d'énergie).
 /* TODO     - moyenner sur 3, 5 ou sept points ? lors de l'enregistrement du fichier ? au désarchivage ?
             - détection perte GPS ? pour quoi faire ?
             - position pendant veille testé seulement pour 8 sur A3 et 10 sur Huawei P20.
-            - tracé sur carte
+            - tracé sur carte (abandonné, trop difficile avoir une carte hors ligne)
             - recherche dans les archives
 */
 /*  Noter :
