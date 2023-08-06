@@ -51,6 +51,7 @@ du système (Doze) et ceux des fabricants (économie d'énergie).
     SharedPreferences.Editor editeur;
     final static String PREF_FILE = "mesInfos";
     Intent locationIntent;
+    long gpsInterval;
     Boolean backgroundLocationGranted = false;
     Boolean foregroundLocationGranted = false;
     FloatingActionButton fab = null;
@@ -91,12 +92,14 @@ du système (Doze) et ceux des fabricants (économie d'énergie).
             editeur.apply();
         }
 
+        gpsInterval = (long) 1000 * mesPrefs.getInt("gps_interval", 5);
 
         checkGPSEnabled(); // ceci informe l'utilisateur si ce n'est pas le cas
 
         model = new ViewModelProvider(this).get(ModelLocation.class);
         locationIntent = new Intent(this, LocationTracker.class);
 
+// préparer les chaînes donnant la date pour l'affichage et pour inclusion dans le nom du fichier
         LocalDate dateToday = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         editeur.putString("dateJour", dateToday.format(formatter));
@@ -111,7 +114,7 @@ du système (Doze) et ceux des fabricants (économie d'énergie).
             checkLocPermission();
         }
 
-// observateur de la position GPS
+// observateur de la position GPS et affichage
         model.getTableauPosition().observe(this, tableau -> {
             binding.inclMain.heure.setText(tableau.get("heure"));
             binding.inclMain.alti.setText(getString(R.string.altitude,tableau.getOrDefault("altitude", "")));
@@ -119,7 +122,7 @@ du système (Doze) et ceux des fabricants (économie d'énergie).
             binding.inclMain.accuracy.setText(getString(R.string.precision,tableau.getOrDefault("precision","")));
         });
 
-// floating action button pour monter le fragment des commandes
+// floating action button pour monter le fragment des commandes de l'appli
         binding.fab.setOnClickListener(( view -> {
             BottomFragment bottomFragment = BottomFragment.getInstance();
             bottomFragment.showNow(getSupportFragmentManager(), "MODAL");
@@ -133,8 +136,9 @@ du système (Doze) et ceux des fabricants (économie d'énergie).
      * sauf que on simplifie : dans le cas de onFailure, au lieu d'envoyer l'utilisateur changer les paramètres on se contente
      * de lui signaler que son GPS n'est pas activé. A lui d'y aller s'il ouhaite avoir une position*/
     private void checkGPSEnabled() {
-        LocationRequest request = LocationRequest.create()
-                .setPriority(Priority.PRIORITY_HIGH_ACCURACY);
+//        LocationRequest request = LocationRequest.create()
+//                .setPriority(Priority.PRIORITY_HIGH_ACCURACY);
+        LocationRequest request = new LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, gpsInterval).build();
         LocationSettingsRequest settingsRequest = new LocationSettingsRequest.Builder()
                 .addLocationRequest(request).build();
         LocationServices.getSettingsClient(this)

@@ -18,7 +18,7 @@
     <string name="ta_position">Position GPS actuelle = </string>
     <string name="lat_lon">%1$s °N"      "%2$s °E</string>
     <string name="precision">Précision = %1$s m</string>
-    <string name="altitude">Altitude = %1$s m</string>
+    <string name="altitude">%1$s m</string>
     <string name="pas_precis">Pas de position précise</string>
     <string name="trkpt">&lt;trkpt lat=\"%1s\" lon=\"%2s\"&gt;&lt;ele&gt;%3s&lt;/ele&gt;&lt;time&gt;%4s
         &lt;/time&gt;&lt;/trkpt&gt;</string>

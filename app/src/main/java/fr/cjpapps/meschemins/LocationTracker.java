@@ -72,7 +72,7 @@ public class LocationTracker extends Service {
         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
         cpuWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
                 "MesChemins:gps_service");
-        cpuWakeLock.acquire();  // en principe il fadrait un timeout pour être "bon citoyen"
+        cpuWakeLock.acquire();  // en principe il faudrait un timeout pour être "bon citoyen"
         createNotificationChannel();  // nécessaire pour fonctionner avec appli en veille
 
 // récupération préférences
@@ -140,12 +140,16 @@ public class LocationTracker extends Service {
      * Sets the location request parameters.
      */
     private void createLocationRequest() {
-        mLocationRequest = LocationRequest.create();
+        mLocationRequest = new LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY)
+                .setIntervalMillis(gpsInterval)
+                .setMinUpdateIntervalMillis(gpsInterval)
+                .setPriority(Priority.PRIORITY_HIGH_ACCURACY).build();
+//        mLocationRequest = LocationRequest.create();
         if (BuildConfig.DEBUG){
             Log.i("APPCHEMINS", "GPS interval = "+gpsInterval);}
-        mLocationRequest.setInterval(gpsInterval);
+/*        mLocationRequest.setInterval(gpsInterval);
         mLocationRequest.setFastestInterval(gpsInterval);
-        mLocationRequest.setPriority(Priority.PRIORITY_HIGH_ACCURACY);
+        mLocationRequest.setPriority(Priority.PRIORITY_HIGH_ACCURACY); */
     }
 
     private void getLastLocation() {
